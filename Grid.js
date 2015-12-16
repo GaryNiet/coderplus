@@ -1,4 +1,4 @@
-var Grid = function(width, height, color, x, y) {
+var Grid = function(width, height, strokeColor, fillColor, x, y) {
   this.cellWidth = width;
   this.cellHeight = height;
   this.nbCell_x = myGameArea.canvas.width/width;
@@ -11,7 +11,7 @@ var Grid = function(width, height, color, x, y) {
     this.table.push([]);
     for(var j = 0; j<this.nbCell_y; j++)
     {
-      var newCell = new Cell(width,height, color, i*width, j*height);
+      var newCell = new Cell(width,height, strokeColor, fillColor, i*width, j*height);
       this.table[i][j] = newCell;
     }
   }
@@ -33,6 +33,11 @@ Grid.prototype.getSquare = function(x,y)
 {
   var x_axis = parseInt(x/this.cellWidth);
   var y_axis = parseInt(y/this.cellHeight);
+  return [x_axis, y_axis];
+}
 
-  console.log(x_axis + " " + y_axis);
+Grid.prototype.fill = function(point)
+{
+  this.table[point[0]][point[1]].fillColor = "red";
+  console.log(this.table[point[0]][point[1]].strokeColor);
 }

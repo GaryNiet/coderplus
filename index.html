@@ -18,7 +18,7 @@ var myGamePiece;
 
 function startGame() {
     myGameArea.start();
-    gameGrid = new Grid(25, 25, "black", 10, 120);
+    gameGrid = new Grid(25, 25, "white", "black", 10, 120);
 }
 
 var myGameArea = {
@@ -54,7 +54,9 @@ function updateGameArea()
 
 function click()
 {
-  gameGrid.getSquare(myGameArea.x, myGameArea.y);
+  var rect = myGameArea.canvas.getBoundingClientRect();
+  var clicked = gameGrid.getSquare(myGameArea.x - rect.left, myGameArea.y - rect.top);
+  gameGrid.fill(clicked);
 }
 
 </script>
