@@ -39,5 +39,4 @@ Grid.prototype.getSquare = function(x,y)
 Grid.prototype.fill = function(point)
 {
   this.table[point[0]][point[1]].fillColor = "red";
-  console.log(this.table[point[0]][point[1]].strokeColor);
 }
