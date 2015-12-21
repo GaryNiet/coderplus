@@ -7,6 +7,8 @@
 <script src="BorderCell.js"></script>
 <script src="PathCell.js"></script>
 <script src="Thread.js"></script>
+<script src="Variable.js"></script>
+<script src="AddCell.js"></script>
 <style>
 canvas {
     border:1px solid #d3d3d3;
@@ -24,7 +26,9 @@ function startGame() {
     myGameArea.start();
     gameGrid = new Grid(cellSize, cellSize, "white", "black", 10, 120);
     gameGrid.createCellLinks();
+    gameGrid.addVariable();
     threadPool = [];
+
 }
 
 var myGameArea = {
@@ -39,6 +43,7 @@ var myGameArea = {
         this.key_A = false;
         this.key_S = false;
         this.key_D = false;
+        this.key_1 = false;
         window.addEventListener('mousedown', function (e) {
             myGameArea.x = e.pageX;
             myGameArea.y = e.pageY;
@@ -97,8 +102,8 @@ function updateThreads()
 {
   threadPool.forEach(function(thread)
   {
-    thread.update();
     thread.draw();
+    thread.update();
   })
 }
 
@@ -120,6 +125,10 @@ function setKeys(event)
   {
     myGameArea.key_D = true;
   }
+  if(event.keyCode == 49)
+  {
+    myGameArea.key_1 = true;
+  }
 }
 
 function unsetKeys(event)
@@ -139,6 +148,10 @@ function unsetKeys(event)
   if(event.keyCode == 68)
   {
     myGameArea.key_D = false;
+  }
+  if(event.keyCode == 49)
+  {
+    myGameArea.key_1 = false;
   }
 }
 

@@ -45,17 +45,21 @@ PathCell.prototype.setDirection = function()
 	if(myGameArea.key_W == true)
 	{
 		this.direction = 1;
+		this.fillColor = "yellow";
 	}
 	if(myGameArea.key_A == true)
 	{
 		this.direction = 4;
+		this.fillColor = "yellow";
 	}
 	if(myGameArea.key_S == true)
 	{
 		this.direction = 3;
+		this.fillColor = "yellow";
 	}
 	if(myGameArea.key_D == true)
 	{
 		this.direction = 2;
+		this.fillColor = "yellow";
 	}
 }

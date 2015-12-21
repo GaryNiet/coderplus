@@ -5,6 +5,7 @@ var Grid = function(width, height, strokeColor, fillColor, x, y) {
   this.nbCell_y = myGameArea.canvas.height/height;
 
   this.table = [];
+  this.variables = [];
   
   for(var i = 0; i<this.nbCell_x; i++)
   {
@@ -30,6 +31,12 @@ Grid.prototype.draw = function()
       cell.draw();
     });
   });
+
+  this.variables.forEach(function(variable)
+  {
+    variable.draw();
+  });
+
 }
 
 Grid.prototype.getSquare = function(x,y)
@@ -54,13 +61,26 @@ Grid.prototype.fill = function(cell_x, cell_y)
   }
   else
   {
-    var newPathCell = new PathCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
-    this.table[cell_x][cell_y] = newPathCell;
-    newPathCell.createLinks();
-    newPathCell.links.forEach(function(cell)
+    if(myGameArea.key_1 == true)
     {
-      cell.createLinks();
-    });
+      var newPathCell = new AddCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+      this.table[cell_x][cell_y] = newPathCell;
+      newPathCell.createLinks();
+      newPathCell.links.forEach(function(cell)
+      {
+        cell.createLinks();
+      });
+    }
+    else
+    {
+      var newPathCell = new PathCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+      this.table[cell_x][cell_y] = newPathCell;
+      newPathCell.createLinks();
+      newPathCell.links.forEach(function(cell)
+      {
+        cell.createLinks();
+      });
+    }
   }
   this.detectErrors(cell);
 
@@ -94,7 +114,7 @@ Grid.prototype.getNextDestination = function(direction, pos_x, pos_y)
   {
     if(this.table[point[0]][point[1]].direction == 1)
     {
-      return [this.table[point[0]][point[1]+1].x,this.table[point[0]][point[1]+1].y, this.table[point[0]][point[1]].direction]
+      return [this.table[point[0]][point[1]-1].x,this.table[point[0]][point[1]-1].y, this.table[point[0]][point[1]].direction]
     }
     if(this.table[point[0]][point[1]].direction == 2)
     {
@@ -102,7 +122,7 @@ Grid.prototype.getNextDestination = function(direction, pos_x, pos_y)
     }
     if(this.table[point[0]][point[1]].direction == 3)
     {
-      return [this.table[point[0]][point[1]-1].x,this.table[point[0]][point[1]-1].y, this.table[point[0]][point[1]].direction]
+      return [this.table[point[0]][point[1]+1].x,this.table[point[0]][point[1]+1].y, this.table[point[0]][point[1]].direction]
     }
     if(this.table[point[0]][point[1]].direction == 4)
     {
@@ -193,4 +213,10 @@ Grid.prototype.detectErrors = function(cell)
       cell.fillColor = "blue";
     }
   });
+}
+
+Grid.prototype.addVariable = function()
+{
+  var variable = new Variable(this.cellWidth, this.cellHeight, 2, 2,3);
+  this.variables.push(variable);
 }

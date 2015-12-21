@@ -48,4 +48,9 @@ Cell.prototype.detectErrors = function()
 	return false;
 }
 
+Cell.prototype.makeOperation = function()
+{
+	return false;
+}
+
 
