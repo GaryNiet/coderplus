@@ -43,4 +43,9 @@ Cell.prototype.createLinks = function()
 	
 }
 
+Cell.prototype.detectErrors = function()
+{
+	return false;
+}
+
 

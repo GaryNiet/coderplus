@@ -46,14 +46,23 @@ Grid.prototype.fill = function(cell_x, cell_y)
   {
     var newBorderCell = new BorderCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
     this.table[cell_x][cell_y] = newBorderCell;
+    newBorderCell.createLinks();
+    newBorderCell.links.forEach(function(cell)
+    {
+      cell.createLinks();
+    });
   }
   else
   {
     var newPathCell = new PathCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
     this.table[cell_x][cell_y] = newPathCell;
+    newPathCell.createLinks();
+    newPathCell.links.forEach(function(cell)
+    {
+      cell.createLinks();
+    });
   }
-
-  this.createCellLinks();//can be made more local for performance boost
+  this.detectErrors(cell);
 
 }
 
@@ -81,9 +90,28 @@ Grid.prototype.getActiveBorders = function()
 Grid.prototype.getNextDestination = function(direction, pos_x, pos_y)
 {
   var point = this.getSquare(pos_x, pos_y);
+  if(typeof this.table[point[0]][point[1]].direction != 'undefined' && this.table[point[0]][point[1]].direction != 0)
+  {
+    if(this.table[point[0]][point[1]].direction == 1)
+    {
+      return [this.table[point[0]][point[1]+1].x,this.table[point[0]][point[1]+1].y, this.table[point[0]][point[1]].direction]
+    }
+    if(this.table[point[0]][point[1]].direction == 2)
+    {
+      return [this.table[point[0]+1][point[1]].x,this.table[point[0]+1][point[1]].y, this.table[point[0]][point[1]].direction]
+    }
+    if(this.table[point[0]][point[1]].direction == 3)
+    {
+      return [this.table[point[0]][point[1]-1].x,this.table[point[0]][point[1]-1].y, this.table[point[0]][point[1]].direction]
+    }
+    if(this.table[point[0]][point[1]].direction == 4)
+    {
+      return [this.table[point[0]-1][point[1]].x,this.table[point[0]-1][point[1]].y, this.table[point[0]][point[1]].direction]
+    }
+  }
+
   var cellLinks = this.table[point[0]][point[1]].links;
 
-  console.log(cellLinks[direction]);
   if(typeof cellLinks[direction] !== 'undefined' && cellLinks[direction].cellType == 2)
   {
     return [cellLinks[direction].x, cellLinks[direction].y, direction];
@@ -103,7 +131,7 @@ Grid.prototype.getNextDestination = function(direction, pos_x, pos_y)
 
     if(marker == 3)
     {
-      console.log("error");
+      alert("error");
     }
     else if(marker == 1)
     {
@@ -143,11 +171,6 @@ Grid.prototype.getNextDestination = function(direction, pos_x, pos_y)
 
 }
 
-Grid.prototype.getBordingCells = function(pos_x, pox_y)
-{
-
-}
-
 Grid.prototype.createCellLinks = function()
 {
   this.table.forEach(function(array)
@@ -159,3 +182,15 @@ Grid.prototype.createCellLinks = function()
   });
 }
 
+Grid.prototype.detectErrors = function(cell)
+{
+  cell.detectErrors();
+  cell.links.forEach(function(cell)
+  {
+    var err =  cell.detectErrors();
+    if(err == true)
+    {
+      cell.fillColor = "blue";
+    }
+  });
+}
