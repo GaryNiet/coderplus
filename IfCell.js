@@ -1,4 +1,4 @@
-var AddCell = function(width, height, x, y)
+var IfCell = function(width, height, x, y)
 {
 	this.width = width;
     this.height = height;
@@ -7,7 +7,7 @@ var AddCell = function(width, height, x, y)
     this.pos_x = x;
     this.pos_y = y;
     this.strokeColor = "white";
-    this.fillColor = "grey";
+    this.fillColor = "purple";
     this.isActive = true;
     this.links = [];
     this.cellType = 2;
@@ -21,13 +21,23 @@ var inheritsFrom = function (child, parent)
 {
    	child.prototype = Object.create(parent.prototype);
 };
-inheritsFrom(AddCell, OperationCell);
+inheritsFrom(IfCell, OperationCell);
 
 
-AddCell.prototype.twoVariableOperation = function(thread) //switch variables
+IfCell.prototype.twoVariableOperation = function(thread) //if operation
 {
-	thread.variable.value += this.variable.value;
+    if(thread.variable.value >= this.variable.value)
+    {
+        //go through
+    }
+    else
+    {
+        thread.direction = (thread.direction %4)+1;
+    }
 }
+
+
+
 
 
 

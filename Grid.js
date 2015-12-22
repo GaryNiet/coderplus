@@ -5,7 +5,6 @@ var Grid = function(width, height, strokeColor, fillColor, x, y) {
   this.nbCell_y = myGameArea.canvas.height/height;
 
   this.table = [];
-  this.variables = [];
   
   for(var i = 0; i<this.nbCell_x; i++)
   {
@@ -66,6 +65,26 @@ Grid.prototype.fill = function(cell_x, cell_y)
         cell.createLinks();
       });
     }
+    else if(myGameArea.key_2 == true)
+    {
+      var newPathCell = new MinusCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+      this.table[cell_x][cell_y] = newPathCell;
+      newPathCell.createLinks();
+      newPathCell.links.forEach(function(cell)
+      {
+        cell.createLinks();
+      });
+    }
+    else if(myGameArea.key_I == true)
+    {
+      var newPathCell = new IfCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+      this.table[cell_x][cell_y] = newPathCell;
+      newPathCell.createLinks();
+      newPathCell.links.forEach(function(cell)
+      {
+        cell.createLinks();
+      });
+    }
     else
     {
       var newPathCell = new PathCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
@@ -106,6 +125,7 @@ Grid.prototype.getActiveBorders = function()
 Grid.prototype.getNextDestination = function(direction, pos_x, pos_y)
 {
   var point = this.getSquare(pos_x, pos_y);
+  
   if(typeof this.table[point[0]][point[1]].direction != 'undefined' && this.table[point[0]][point[1]].direction != 0)
   {
     if(this.table[point[0]][point[1]].direction == 1)
@@ -215,10 +235,10 @@ Grid.prototype.addVariable = function()
 {
   var variable = new Variable(this.cellWidth, this.cellHeight, 2, 2,3);
   this.table[2][2].variable = variable;
-  this.variables.push(variable);
   var variable = new Variable(this.cellWidth, this.cellHeight, 5, 5, 6);
   this.table[5][5].variable = variable;
-  this.variables.push(variable);
+  var variable = new Variable(this.cellWidth, this.cellHeight, 5, 10, 1);
+  this.table[5][10].variable = variable;
 }
 
 Grid.prototype.passVariable = function(cell)

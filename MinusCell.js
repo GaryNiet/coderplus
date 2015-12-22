@@ -1,4 +1,4 @@
-var AddCell = function(width, height, x, y)
+var MinusCell = function(width, height, x, y)
 {
 	this.width = width;
     this.height = height;
@@ -21,12 +21,12 @@ var inheritsFrom = function (child, parent)
 {
    	child.prototype = Object.create(parent.prototype);
 };
-inheritsFrom(AddCell, OperationCell);
+inheritsFrom(MinusCell, OperationCell);
 
 
-AddCell.prototype.twoVariableOperation = function(thread) //switch variables
+MinusCell.prototype.twoVariableOperation = function(thread) //switch variables
 {
-	thread.variable.value += this.variable.value;
+	thread.variable.value -= this.variable.value;
 }
 
 

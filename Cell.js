@@ -58,19 +58,34 @@ Cell.prototype.makeOperation = function(thread)
 {
 	if(thread.hasVariable() && this.hasVariable())
 	{
-		var switchVar = thread.variable;
-		thread.variable = this.variable;
-		this.variable = switchVar;
+		this.twoVariableOperation(thread);
 	}
 	else if(thread.hasVariable())
 	{
-		//move along
+		this.threadVariableOperation(thread);
 	}
 	else if(this.hasVariable())
 	{
-		thread.pickUpVariable(this.variable);
-		this.variable = null;
+		this.cellVariableOperation(thread);
 	}
+}
+
+Cell.prototype.twoVariableOperation = function(thread) //switch variables
+{
+	var switchVar = thread.variable;
+	thread.variable = this.variable;
+	this.variable = switchVar;
+}
+
+Cell.prototype.threadVariableOperation = function(thread)
+{
+	//move along
+}
+
+Cell.prototype.cellVariableOperation = function(thread)//pick up
+{
+	thread.pickUpVariable(this.variable);
+	this.variable = null;
 }
 
 Cell.prototype.hasVariable = function()

@@ -4,7 +4,7 @@ var Thread = function(pos_x, pos_y, dest_x, dest_y)
 	this.position_y = pos_y;//pixels
 	this.destination_x = dest_x;//pixels
 	this.destination_y = dest_y; //pixels
-	this.strokeColor = "grey";
+	this.strokeColor = "white";
 	this.direction = 3; //0 = still // 1 = N // 2 = E // 3 = S // 4 = W
 	this.variable = null;
 
@@ -32,8 +32,10 @@ Thread.prototype.update = function()
 
 	if(this.destination_x == this.position_x && this.destination_y == this.position_y)
 	{
-		var next_dest = gameGrid.getNextDestination(this.direction, this.destination_x, this.destination_y);
 		this.activateCell();
+		console.log(this.direction);
+		console.log("now");
+		var next_dest = gameGrid.getNextDestination(this.direction, this.destination_x, this.destination_y);
 		this.destination_x = next_dest[0];
 		this.destination_y = next_dest[1];
 		this.direction = next_dest[2];

@@ -8,7 +8,10 @@
 <script src="PathCell.js"></script>
 <script src="Thread.js"></script>
 <script src="Variable.js"></script>
+<script src="OperationCell.js"></script>
 <script src="AddCell.js"></script>
+<script src="MinusCell.js"></script>
+<script src="IfCell.js"></script>
 <style>
 canvas {
     border:1px solid #d3d3d3;
@@ -34,8 +37,8 @@ function startGame() {
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 500;
-        this.canvas.height = 500;
+        this.canvas.width = 600;
+        this.canvas.height = 600;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(updateGameArea, 30);
@@ -44,6 +47,8 @@ var myGameArea = {
         this.key_S = false;
         this.key_D = false;
         this.key_1 = false;
+        this.key_2 = false;
+        this.key_I = false;
         window.addEventListener('mousedown', function (e) {
             myGameArea.x = e.pageX;
             myGameArea.y = e.pageY;
@@ -129,6 +134,14 @@ function setKeys(event)
   {
     myGameArea.key_1 = true;
   }
+  if(event.keyCode == 50)
+  {
+    myGameArea.key_2 = true;
+  }
+  if(event.keyCode == 73)
+  {
+    myGameArea.key_I = true;
+  }
 }
 
 function unsetKeys(event)
@@ -153,6 +166,16 @@ function unsetKeys(event)
   {
     myGameArea.key_1 = false;
   }
+  if(event.keyCode == 50)
+  {
+    myGameArea.key_2 = false;
+  }
+  if(event.keyCode == 73)
+  {
+    myGameArea.key_I = false;
+  }
+  
+
 }
 
 </script>
