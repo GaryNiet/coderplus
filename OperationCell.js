@@ -15,6 +15,10 @@ var OperationCell = function(width, height, x, y)
     this.isBorder = false;
     this.setDirection();
     this.variable = null;
+    this.textColor = "black";
+    this.value = "-";
+
+    this.buildable = true;
 }
 
 var inheritsFrom = function (child, parent)
@@ -29,4 +33,23 @@ OperationCell.prototype.threadVariableOperation = function(thread)
 	thread.dropVariable();
 }
 
+OperationCell.prototype.draw = function()
+{
+	ctx = myGameArea.context;
+	ctx.fillStyle = this.fillColor;
+    ctx.strokeStyle = this.strokeColor;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.strokeRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = this.textColor;
+    ctx.font = "20px Arial";
+    ctx.fillText(this.value,this.x + cellSize/3, this.y + 3*cellSize/4);
+    this.drawVariable();
+}
 
+OperationCell.prototype.drawVariable = function()
+{
+	if(this.hasVariable())
+    {
+    	this.variable.customDraw(this.value);
+    }
+}

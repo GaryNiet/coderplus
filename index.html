@@ -12,6 +12,8 @@
 <script src="AddCell.js"></script>
 <script src="MinusCell.js"></script>
 <script src="IfCell.js"></script>
+<script src="ResultCell.js"></script>
+<script src="BlockCell.js"></script>
 <style>
 canvas {
     border:1px solid #d3d3d3;
@@ -23,9 +25,10 @@ canvas {
 <script>
 
 var myGamePiece;
-cellSize = 25;
+cellSize = 40;
 
 function startGame() {
+    loadImages();
     myGameArea.start();
     gameGrid = new Grid(cellSize, cellSize, "white", "black", 10, 120);
     gameGrid.createCellLinks();
@@ -49,6 +52,8 @@ var myGameArea = {
         this.key_1 = false;
         this.key_2 = false;
         this.key_I = false;
+        this.key_R = false;
+        this.key_B = false;
         window.addEventListener('mousedown', function (e) {
             myGameArea.x = e.pageX;
             myGameArea.y = e.pageY;
@@ -142,6 +147,14 @@ function setKeys(event)
   {
     myGameArea.key_I = true;
   }
+  if(event.keyCode == 82)
+  {
+    myGameArea.key_R = true;
+  }
+  if(event.keyCode == 66)
+  {
+    myGameArea.key_B = true;
+  }
 }
 
 function unsetKeys(event)
@@ -174,8 +187,30 @@ function unsetKeys(event)
   {
     myGameArea.key_I = false;
   }
+  if(event.keyCode == 82)
+  {
+    myGameArea.key_R = false;
+  }
+  if(event.keyCode == 66)
+  {
+    myGameArea.key_B = false;
+  }
   
 
+}
+
+function loadImages()
+{
+  image_up = new Image();
+  image_down = new Image();
+  image_right = new Image();
+  image_left = new Image();
+
+
+  image_up.src = "images/up.png";
+  image_down.src = "images/down.png";
+  image_right.src = "images/right.png";
+  image_left.src = "images/left.png";
 }
 
 </script>

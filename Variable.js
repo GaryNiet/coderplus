@@ -23,3 +23,16 @@ Variable.prototype.draw = function()
     ctx.font = "20px Arial";
     ctx.fillText(String(this.value),this.x + cellSize/3, this.y + 3*cellSize/4);
 }
+
+Variable.prototype.customDraw = function(value)
+{
+    ctx = myGameArea.context;
+    ctx.strokeStyle = this.strokeColor;
+    ctx.fillStyle = this.fillColor;
+    ctx.beginPath();
+    ctx.arc(this.x + cellSize/2, this.y + cellSize/2, cellSize/2, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.fillStyle = this.textColor;
+    ctx.font = "12px Arial";
+    ctx.fillText(value + " " + String(this.value),this.x + cellSize/3, this.y + 3*cellSize/4);
+}

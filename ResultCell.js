@@ -1,4 +1,4 @@
-var IfCell = function(width, height, x, y)
+var ResultCell = function(width, height, x, y)
 {
 	this.width = width;
     this.height = height;
@@ -6,8 +6,8 @@ var IfCell = function(width, height, x, y)
     this.y = y*height;
     this.pos_x = x;
     this.pos_y = y;
-    this.strokeColor = "white";
-    this.fillColor = "#44C958";
+    this.strokeColor = "pink";
+    this.fillColor = "pink";
     this.isActive = true;
     this.links = [];
     this.cellType = 2;
@@ -15,33 +15,25 @@ var IfCell = function(width, height, x, y)
     this.isBorder = false;
     this.setDirection();
     this.variable = null;
-
+    
     this.buildable = true;
-    this.textColor = "black";
-    this.value = ">";
 }
 
 var inheritsFrom = function (child, parent)
 {
    	child.prototype = Object.create(parent.prototype);
 };
-inheritsFrom(IfCell, OperationCell);
+inheritsFrom(ResultCell, PathCell);
 
-
-IfCell.prototype.twoVariableOperation = function(thread) //if operation
+ResultCell.prototype.twoVariableOperation = function(thread) 
 {
-    if(thread.variable.value >= this.variable.value)
+    if(thread.variable.value == this.variable.value)
     {
-        //go through
-    }
-    else
-    {
-        thread.direction = (thread.direction %4)+1;
+        alert("win");
     }
 }
 
-
-
-
-
-
+ResultCell.prototype.cellVariableOperation = function(thread)
+{
+    //move along
+}

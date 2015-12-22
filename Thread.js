@@ -33,8 +33,6 @@ Thread.prototype.update = function()
 	if(this.destination_x == this.position_x && this.destination_y == this.position_y)
 	{
 		this.activateCell();
-		console.log(this.direction);
-		console.log("now");
 		var next_dest = gameGrid.getNextDestination(this.direction, this.destination_x, this.destination_y);
 		this.destination_x = next_dest[0];
 		this.destination_y = next_dest[1];

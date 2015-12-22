@@ -7,7 +7,7 @@ var PathCell = function(width, height, x, y)
     this.pos_x = x;
     this.pos_y = y;
     this.strokeColor = "white";
-    this.fillColor = "red";
+    this.fillColor = "#782EB0";
     this.isActive = true;
     this.links = [];
     this.cellType = 2;
@@ -15,6 +15,8 @@ var PathCell = function(width, height, x, y)
     this.isBorder = false;
     this.setDirection();
     this.variable = null;
+
+    this.buildable = true;
 }
 
 var inheritsFrom = function (child, parent)
@@ -63,4 +65,30 @@ PathCell.prototype.setDirection = function()
 		this.direction = 2;
 		this.fillColor = "yellow";
 	}
+}
+
+PathCell.prototype.draw = function()
+{
+	Cell.prototype.draw.call(this);
+	if(this.direction != 0)
+	{
+		if(this.direction == 1)
+		{
+			ctx.drawImage(image_up, this.x, this.y, this.width, this.height);
+		}
+		else if(this.direction == 2)
+		{
+			ctx.drawImage(image_right, this.x, this.y, this.width, this.height);
+		}
+		else if(this.direction == 3)
+		{
+			ctx.drawImage(image_down, this.x, this.y, this.width, this.height);
+		}
+		else if(this.direction == 4)
+		{
+			ctx.drawImage(image_left, this.x, this.y, this.width, this.height);
+		}
+	}
+	
+	
 }

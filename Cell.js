@@ -6,12 +6,13 @@ var Cell = function(width, height, x, y) {
     this.pos_x = x;
     this.pos_y = y;
     this.strokeColor = "white";
-    this.fillColor = "black";
+    this.fillColor = "#111B1F";
     this.isActive = false;
     this.isBorder = false;
     this.links = [];
     this.cellType = 0;
     this.variable = null;
+    this.buildable = true;
 }
 
 Cell.prototype.draw = function()
@@ -22,7 +23,13 @@ Cell.prototype.draw = function()
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.strokeRect(this.x, this.y, this.width, this.height);
 
-    if(this.hasVariable())
+    this.drawVariable();
+    
+}
+
+Cell.prototype.drawVariable = function()
+{
+	if(this.hasVariable())
     {
     	this.variable.draw();
     }

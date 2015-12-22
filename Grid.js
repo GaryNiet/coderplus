@@ -43,57 +43,85 @@ Grid.prototype.getSquare = function(x,y)
 Grid.prototype.fill = function(cell_x, cell_y)
 {
   var cell = this.table[cell_x][cell_y];
-  if(cell.isBorder)
+  if(cell.buildable == false)
   {
-    var newBorderCell = new BorderCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
-    this.table[cell_x][cell_y] = newBorderCell;
-    newBorderCell.createLinks();
-    newBorderCell.links.forEach(function(cell)
-    {
-      cell.createLinks();
-    });
+    console.log("cannot build");
   }
   else
   {
-    if(myGameArea.key_1 == true)
+  
+    if(cell.isBorder)
     {
-      var newPathCell = new AddCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
-      this.table[cell_x][cell_y] = newPathCell;
-      newPathCell.createLinks();
-      newPathCell.links.forEach(function(cell)
-      {
-        cell.createLinks();
-      });
-    }
-    else if(myGameArea.key_2 == true)
-    {
-      var newPathCell = new MinusCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
-      this.table[cell_x][cell_y] = newPathCell;
-      newPathCell.createLinks();
-      newPathCell.links.forEach(function(cell)
-      {
-        cell.createLinks();
-      });
-    }
-    else if(myGameArea.key_I == true)
-    {
-      var newPathCell = new IfCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
-      this.table[cell_x][cell_y] = newPathCell;
-      newPathCell.createLinks();
-      newPathCell.links.forEach(function(cell)
+      var newBorderCell = new BorderCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+      this.table[cell_x][cell_y] = newBorderCell;
+      newBorderCell.createLinks();
+      newBorderCell.links.forEach(function(cell)
       {
         cell.createLinks();
       });
     }
     else
     {
-      var newPathCell = new PathCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
-      this.table[cell_x][cell_y] = newPathCell;
-      newPathCell.createLinks();
-      newPathCell.links.forEach(function(cell)
+      if(myGameArea.key_1 == true)
       {
-        cell.createLinks();
-      });
+        var newPathCell = new AddCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        this.table[cell_x][cell_y] = newPathCell;
+        newPathCell.createLinks();
+        newPathCell.links.forEach(function(cell)
+        {
+          cell.createLinks();
+        });
+      }
+      else if(myGameArea.key_2 == true)
+      {
+        var newPathCell = new MinusCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        this.table[cell_x][cell_y] = newPathCell;
+        newPathCell.createLinks();
+        newPathCell.links.forEach(function(cell)
+        {
+          cell.createLinks();
+        });
+      }
+      else if(myGameArea.key_I == true)
+      {
+        var newPathCell = new IfCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        this.table[cell_x][cell_y] = newPathCell;
+        newPathCell.createLinks();
+        newPathCell.links.forEach(function(cell)
+        {
+          cell.createLinks();
+        });
+      }
+      else if(myGameArea.key_R == true)
+      {
+        var newPathCell = new ResultCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        this.table[cell_x][cell_y] = newPathCell;
+        newPathCell.createLinks();
+        newPathCell.links.forEach(function(cell)
+        {
+          cell.createLinks();
+        });
+      }
+      else if(myGameArea.key_B == true)
+      {
+        var newPathCell = new BlockCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        this.table[cell_x][cell_y] = newPathCell;
+        newPathCell.createLinks();
+        newPathCell.links.forEach(function(cell)
+        {
+          cell.createLinks();
+        });
+      }
+      else
+      {
+        var newPathCell = new PathCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        this.table[cell_x][cell_y] = newPathCell;
+        newPathCell.createLinks();
+        newPathCell.links.forEach(function(cell)
+        {
+          cell.createLinks();
+        });
+      }
     }
   }
   //this.detectErrors(cell);
@@ -237,7 +265,7 @@ Grid.prototype.addVariable = function()
   this.table[2][2].variable = variable;
   var variable = new Variable(this.cellWidth, this.cellHeight, 5, 5, 6);
   this.table[5][5].variable = variable;
-  var variable = new Variable(this.cellWidth, this.cellHeight, 5, 10, 1);
+  var variable = new Variable(this.cellWidth, this.cellHeight, 5, 10, 3);
   this.table[5][10].variable = variable;
 }
 
