@@ -6,13 +6,14 @@ var Cell = function(width, height, x, y) {
     this.pos_x = x;
     this.pos_y = y;
     this.strokeColor = "white";
-    this.fillColor = "#111B1F";
+    this.fillColor = "#3C464A";
     this.isActive = false;
     this.isBorder = false;
     this.links = [];
     this.cellType = 0;
     this.variable = null;
     this.buildable = true;
+    this.lineWidth = 2;
 }
 
 Cell.prototype.draw = function()
@@ -20,6 +21,7 @@ Cell.prototype.draw = function()
 	ctx = myGameArea.context;
 	ctx.fillStyle = this.fillColor;
     ctx.strokeStyle = this.strokeColor;
+    ctx.lineWidth = this.lineWidth;
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.strokeRect(this.x, this.y, this.width, this.height);
 

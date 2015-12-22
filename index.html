@@ -40,11 +40,12 @@ function startGame() {
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 600;
-        this.canvas.height = 600;
+        this.canvas.width = 800;
+        this.canvas.height = 800;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(updateGameArea, 30);
+        this.mouseDown = false;
         this.key_W = false;
         this.key_A = false;
         this.key_S = false;
@@ -54,14 +55,29 @@ var myGameArea = {
         this.key_I = false;
         this.key_R = false;
         this.key_B = false;
+        this.lastDraggedCell = null;
+
+
         window.addEventListener('mousedown', function (e) {
             myGameArea.x = e.pageX;
             myGameArea.y = e.pageY;
+            this.mouseDown = true;
+            click();
+        })
+        window.addEventListener('mousemove', function (e) {
+            if(this.mouseDown == true)
+            {
+              myGameArea.x = e.pageX;
+              myGameArea.y = e.pageY;
+              drag();
+            }
+            
         })
         window.addEventListener('mouseup', function (e) {
-          click();
-          myGameArea.x = false;
-          myGameArea.y = false;
+          this.mouseDown = false;
+          //useless?
+          //myGameArea.x = false;
+          //myGameArea.y = false;
         })
         window.addEventListener('keydown', function (e)
         {
@@ -91,7 +107,20 @@ function click()
 {
   var rect = myGameArea.canvas.getBoundingClientRect();
   var clicked = gameGrid.getSquare(myGameArea.x - rect.left, myGameArea.y - rect.top);
+  this.lastDraggedCell = clicked;
   gameGrid.fill(clicked[0], clicked[1]);
+}
+
+function drag()
+{
+  var rect = myGameArea.canvas.getBoundingClientRect();
+  var clicked = gameGrid.getSquare(myGameArea.x - rect.left, myGameArea.y - rect.top);
+
+  if(clicked[0] != this.lastDraggedCell[0] || clicked[1] != this.lastDraggedCell[1])
+  {
+    this.lastDraggedCell = clicked;
+    gameGrid.fill(clicked[0], clicked[1]);
+  }
 }
 
 function createThreads()

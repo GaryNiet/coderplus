@@ -7,6 +7,7 @@ var Thread = function(pos_x, pos_y, dest_x, dest_y)
 	this.strokeColor = "white";
 	this.direction = 3; //0 = still // 1 = N // 2 = E // 3 = S // 4 = W
 	this.variable = null;
+	this.lineWidth = 4;
 
 }
 
@@ -14,20 +15,20 @@ Thread.prototype.update = function()
 {
 	if(this.destination_x > this.position_x)
 	{
-		this.position_x += 1;
+		this.position_x += 2;
 	}
 	else if(this.destination_x < this.position_x)
 	{
-		this.position_x -= 1;
+		this.position_x -= 2;
 	}
 
 	if(this.destination_y > this.position_y)
 	{
-		this.position_y += 1;
+		this.position_y += 2;
 	}
 	else if(this.destination_y < this.position_y)
 	{
-		this.position_y -= 1;
+		this.position_y -= 2;
 	}
 
 	if(this.destination_x == this.position_x && this.destination_y == this.position_y)
@@ -53,6 +54,7 @@ Thread.prototype.draw = function()
     ctx.strokeStyle = this.strokeColor;
     ctx.beginPath();
 	ctx.arc(this.position_x + cellSize/2, this.position_y + cellSize/2, cellSize/2, 0, 2 * Math.PI);
+	ctx.lineWidth = this.lineWidth;
 	ctx.stroke();
 
 	if(this.hasVariable())
