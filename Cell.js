@@ -11,6 +11,7 @@ var Cell = function(width, height, x, y) {
     this.isBorder = false;
     this.links = [];
     this.cellType = 0;
+    this.variable = null;
 }
 
 Cell.prototype.draw = function()
@@ -20,6 +21,11 @@ Cell.prototype.draw = function()
     ctx.strokeStyle = this.strokeColor;
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.strokeRect(this.x, this.y, this.width, this.height);
+
+    if(this.hasVariable())
+    {
+    	this.variable.draw();
+    }
 }
 
 Cell.prototype.createLinks = function()
@@ -48,9 +54,35 @@ Cell.prototype.detectErrors = function()
 	return false;
 }
 
-Cell.prototype.makeOperation = function()
+Cell.prototype.makeOperation = function(thread)
 {
-	return false;
+	if(thread.hasVariable() && this.hasVariable())
+	{
+		var switchVar = thread.variable;
+		thread.variable = this.variable;
+		this.variable = switchVar;
+	}
+	else if(thread.hasVariable())
+	{
+		//move along
+	}
+	else if(this.hasVariable())
+	{
+		thread.pickUpVariable(this.variable);
+		this.variable = null;
+	}
+}
+
+Cell.prototype.hasVariable = function()
+{
+	if(this.variable == null)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 }
 
 

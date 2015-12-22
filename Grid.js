@@ -32,11 +32,6 @@ Grid.prototype.draw = function()
     });
   });
 
-  this.variables.forEach(function(variable)
-  {
-    variable.draw();
-  });
-
 }
 
 Grid.prototype.getSquare = function(x,y)
@@ -82,7 +77,8 @@ Grid.prototype.fill = function(cell_x, cell_y)
       });
     }
   }
-  this.detectErrors(cell);
+  //this.detectErrors(cell);
+  this.passVariable(cell);
 
 }
 
@@ -218,5 +214,17 @@ Grid.prototype.detectErrors = function(cell)
 Grid.prototype.addVariable = function()
 {
   var variable = new Variable(this.cellWidth, this.cellHeight, 2, 2,3);
+  this.table[2][2].variable = variable;
   this.variables.push(variable);
+  var variable = new Variable(this.cellWidth, this.cellHeight, 5, 5, 6);
+  this.table[5][5].variable = variable;
+  this.variables.push(variable);
+}
+
+Grid.prototype.passVariable = function(cell)
+{
+  if(cell.hasVariable())
+  {
+      this.table[cell.pos_x][cell.pos_y].variable = cell.variable;
+  }
 }

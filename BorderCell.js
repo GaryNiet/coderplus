@@ -12,6 +12,7 @@ var BorderCell = function(width, height, x, y)
     this.readyThreads = 1;
     this.links = [];
     this.cellType = 1;
+    this.variable = null;
 
     this.isBorder = true;
 

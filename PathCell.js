@@ -14,6 +14,7 @@ var PathCell = function(width, height, x, y)
     this.direction = 0;
     this.isBorder = false;
     this.setDirection();
+    this.variable = null;
 }
 
 var inheritsFrom = function (child, parent)

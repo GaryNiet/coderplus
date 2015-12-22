@@ -15,7 +15,6 @@ var AddCell = function(width, height, x, y)
     this.isBorder = false;
     this.setDirection();
     this.variable = null;
-    this.hasVariable = false;
 }
 
 var inheritsFrom = function (child, parent)
@@ -26,19 +25,20 @@ inheritsFrom(AddCell, PathCell);
 
 AddCell.prototype.makeOperation = function(thread)
 {
-	if(thread.hasVariable && this.hasVariable)
+	if(thread.hasVariable() && this.hasVariable())//add
 	{
-		//add
+		thread.variable.value += this.variable.value;
+		this.variable = null;
 	}
-	else if(thread.hasVariable)
+	else if(thread.hasVariable())//drop up
 	{
-		this.variable = thread.pickedUpVariable;
+		this.variable = thread.variable;
 		thread.dropVariable();
-		this.hasVariable = true;
 	}
-	else if(this.hasVariable)
+	else if(this.hasVariable())//pick up
 	{
-		//pick up
+		thread.pickUpVariable(this.variable);
+		this.variable = null;
 	}
 }
 
