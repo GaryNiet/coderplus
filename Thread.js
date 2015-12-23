@@ -35,9 +35,18 @@ Thread.prototype.update = function()
 	{
 		this.activateCell();
 		var next_dest = gameGrid.getNextDestination(this.direction, this.destination_x, this.destination_y);
-		this.destination_x = next_dest[0];
-		this.destination_y = next_dest[1];
-		this.direction = next_dest[2];
+
+		if(typeof next_dest !== 'undefined')
+		{
+			this.destination_x = next_dest[0];
+			this.destination_y = next_dest[1];
+			this.direction = next_dest[2];
+		}
+		else
+		{
+			this.direction = ((this.direction + 1)%4)+1;
+		}
+		
 	}
 
 	if(this.variable !== null)

@@ -112,6 +112,16 @@ Grid.prototype.fill = function(cell_x, cell_y)
           cell.createLinks();
         });
       }
+      else if(myGameArea.key_C == true)
+      {
+        var newPathCell = new CopyCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        this.table[cell_x][cell_y] = newPathCell;
+        newPathCell.createLinks();
+        newPathCell.links.forEach(function(cell)
+        {
+          cell.createLinks();
+        });
+      }
       else
       {
         var newPathCell = new PathCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
@@ -263,10 +273,14 @@ Grid.prototype.addVariable = function()
 {
   var variable = new Variable(this.cellWidth, this.cellHeight, 2, 2,3);
   this.table[2][2].variable = variable;
-  var variable = new Variable(this.cellWidth, this.cellHeight, 5, 5, 6);
-  this.table[5][5].variable = variable;
+  var variable = new Variable(this.cellWidth, this.cellHeight, 10, 8, 6);
+  this.table[10][8].variable = variable;
   var variable = new Variable(this.cellWidth, this.cellHeight, 5, 10, 3);
   this.table[5][10].variable = variable;
+  var variable = new Variable(this.cellWidth, this.cellHeight, 5, 6, 1);
+  this.table[5][6].variable = variable;
+  var variable = new Variable(this.cellWidth, this.cellHeight, 1, 8, 0);
+  this.table[1][8].variable = variable;
 }
 
 Grid.prototype.passVariable = function(cell)

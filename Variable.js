@@ -35,3 +35,10 @@ Variable.prototype.drawSimpleVariable = function()
     ctx.fill();
     ctx.fillStyle = this.textColor;
 }
+
+Variable.prototype.copy = function(variable)
+{
+    var variable = new Variable(this.width, this.height, this.pos_x, this.pos_y, this.value);
+    return variable;
+
+}

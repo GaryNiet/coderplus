@@ -14,6 +14,7 @@
 <script src="IfCell.js"></script>
 <script src="ResultCell.js"></script>
 <script src="BlockCell.js"></script>
+<script src="CopyCell.js"></script>
 <style>
 canvas {
     border:1px solid #d3d3d3;
@@ -55,6 +56,7 @@ var myGameArea = {
         this.key_I = false;
         this.key_R = false;
         this.key_B = false;
+        this.key_C = false;
         this.lastDraggedCell = null;
 
 
@@ -184,6 +186,10 @@ function setKeys(event)
   {
     myGameArea.key_B = true;
   }
+  if(event.keyCode == 67)
+  {
+    myGameArea.key_C = true;
+  }
 }
 
 function unsetKeys(event)
@@ -223,6 +229,10 @@ function unsetKeys(event)
   if(event.keyCode == 66)
   {
     myGameArea.key_B = false;
+  }
+  if(event.keyCode == 67)
+  {
+    myGameArea.key_C = false;
   }
   
 
