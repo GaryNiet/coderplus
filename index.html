@@ -24,7 +24,7 @@ canvas {
 }
 </style>
 </head>
-<body onload="startGame()">
+<body oncontextmenu="return false;" onload="startGame()">
 <script>
 
 var myGamePiece;
@@ -35,7 +35,6 @@ function startGame() {
     myGameArea.start();
     gameGrid = new Grid(cellSize, cellSize, "white", "black", 10, 120);
     gameGrid.createCellLinks();
-    gameGrid.addVariable();
     threadPool = [];
 
 }
@@ -55,16 +54,27 @@ var myGameArea = {
         this.key_D = false;
         this.key_1 = false;
         this.key_2 = false;
+        this.key_3 = false;
+        this.key_4 = false;
+        this.key_5 = false;
+        this.key_6 = false;
+        this.key_7 = false;
+        this.key_8 = false;
+        this.key_9 = false;
+        this.key_0 = false;
         this.key_I = false;
         this.key_R = false;
         this.key_B = false;
         this.key_C = false;
         this.key_K = false;
         this.key_H = false;
+        this.key_P = false;
+        this.key_M = false;
         this.lastDraggedCell = null;
 
 
         window.addEventListener('mousedown', function (e) {
+            myGameArea.which = e.which;
             myGameArea.x = e.pageX;
             myGameArea.y = e.pageY;
             this.mouseDown = true;
@@ -73,6 +83,7 @@ var myGameArea = {
         window.addEventListener('mousemove', function (e) {
             if(this.mouseDown == true)
             {
+              myGameArea.which = e.which;
               myGameArea.x = e.pageX;
               myGameArea.y = e.pageY;
               drag();
@@ -178,6 +189,38 @@ function setKeys(event)
   {
     myGameArea.key_2 = true;
   }
+  if(event.keyCode == 51)
+  {
+    myGameArea.key_3 = true;
+  }
+  if(event.keyCode == 52)
+  {
+    myGameArea.key_4 = true;
+  }
+  if(event.keyCode == 53)
+  {
+    myGameArea.key_5 = true;
+  }
+  if(event.keyCode == 54)
+  {
+    myGameArea.key_6 = true;
+  }
+  if(event.keyCode == 55)
+  {
+    myGameArea.key_7 = true;
+  }
+  if(event.keyCode == 56)
+  {
+    myGameArea.key_8 = true;
+  }
+  if(event.keyCode == 57)
+  {
+    myGameArea.key_9 = true;
+  }
+  if(event.keyCode == 48)
+  {
+    myGameArea.key_0 = true;
+  }
   if(event.keyCode == 73)
   {
     myGameArea.key_I = true;
@@ -201,6 +244,14 @@ function setKeys(event)
   if(event.keyCode == 72)
   {
     myGameArea.key_H = true;
+  }
+  if(event.keyCode == 77)
+  {
+    myGameArea.key_M = true;
+  }
+  if(event.keyCode == 80)
+  {
+    myGameArea.key_P = true;
   }
 }
 
@@ -230,6 +281,38 @@ function unsetKeys(event)
   {
     myGameArea.key_2 = false;
   }
+  if(event.keyCode == 51)
+  {
+    myGameArea.key_3 = false;
+  }
+  if(event.keyCode == 52)
+  {
+    myGameArea.key_4 = false;
+  }
+  if(event.keyCode == 53)
+  {
+    myGameArea.key_5 = false;
+  }
+  if(event.keyCode == 54)
+  {
+    myGameArea.key_6 = false;
+  }
+  if(event.keyCode == 55)
+  {
+    myGameArea.key_7 = false;
+  }
+  if(event.keyCode == 56)
+  {
+    myGameArea.key_8 = false;
+  }
+  if(event.keyCode == 57)
+  {
+    myGameArea.key_9 = false;
+  }
+  if(event.keyCode == 48)
+  {
+    myGameArea.key_0 = false;
+  }
   if(event.keyCode == 73)
   {
     myGameArea.key_I = false;
@@ -253,6 +336,14 @@ function unsetKeys(event)
   if(event.keyCode == 72)
   {
     myGameArea.key_H = false;
+  }
+  if(event.keyCode == 77)
+  {
+    myGameArea.key_M = false;
+  }
+  if(event.keyCode == 80)
+  {
+    myGameArea.key_P = false;
   }
   
 

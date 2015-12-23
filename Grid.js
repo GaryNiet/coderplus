@@ -47,6 +47,16 @@ Grid.prototype.fill = function(cell_x, cell_y)
   {
     console.log("cannot build");
   }
+  else if(myGameArea.which == 3)
+  {
+    var newCell = new Cell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+      this.table[cell_x][cell_y] = newCell;
+      newCell.createLinks();
+      newCell.links.forEach(function(cell)
+      {
+        cell.createLinks();
+      });
+  }
   else
   {
   
@@ -62,7 +72,7 @@ Grid.prototype.fill = function(cell_x, cell_y)
     }
     else
     {
-      if(myGameArea.key_1 == true)
+      if(myGameArea.key_P == true)
       {
         var newPathCell = new AddCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
         this.table[cell_x][cell_y] = newPathCell;
@@ -72,7 +82,7 @@ Grid.prototype.fill = function(cell_x, cell_y)
           cell.createLinks();
         });
       }
-      else if(myGameArea.key_2 == true)
+      else if(myGameArea.key_M == true)
       {
         var newPathCell = new MinusCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
         this.table[cell_x][cell_y] = newPathCell;
@@ -142,6 +152,47 @@ Grid.prototype.fill = function(cell_x, cell_y)
           cell.createLinks();
         });
       }
+      else if(myGameArea.key_1 == true)
+      {
+        this.addVariable(cell_x, cell_y, 1);
+      }
+      else if(myGameArea.key_2 == true)
+      {
+        this.addVariable(cell_x, cell_y, 2);
+      }
+      else if(myGameArea.key_3 == true)
+      {
+        this.addVariable(cell_x, cell_y, 3);
+      }
+      else if(myGameArea.key_4 == true)
+      {
+        this.addVariable(cell_x, cell_y, 4);
+      }
+      else if(myGameArea.key_5 == true)
+      {
+        this.addVariable(cell_x, cell_y, 5);
+      }
+      else if(myGameArea.key_6 == true)
+      {
+        this.addVariable(cell_x, cell_y, 6);
+      }
+      else if(myGameArea.key_7 == true)
+      {
+        this.addVariable(cell_x, cell_y, 7);
+      }
+      else if(myGameArea.key_8 == true)
+      {
+        this.addVariable(cell_x, cell_y, 8);
+      }
+      else if(myGameArea.key_9 == true)
+      {
+        this.addVariable(cell_x, cell_y, 9);
+      }
+      else if(myGameArea.key_0 == true)
+      {
+        this.addVariable(cell_x, cell_y, 0);
+      }
+
       else
       {
         var newPathCell = new PathCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
@@ -152,10 +203,11 @@ Grid.prototype.fill = function(cell_x, cell_y)
           cell.createLinks();
         });
       }
+      this.passVariable(cell);
     }
   }
   //this.detectErrors(cell);
-  this.passVariable(cell);
+  
 
 }
 
@@ -289,18 +341,10 @@ Grid.prototype.detectErrors = function(cell)
   });
 }
 
-Grid.prototype.addVariable = function()
+Grid.prototype.addVariable = function(x,y,value)
 {
-  var variable = new Variable(this.cellWidth, this.cellHeight, 2, 1,1);
-  this.table[2][1].variable = variable;
-  var variable = new Variable(this.cellWidth, this.cellHeight, 9, 8, 6);
-  this.table[9][8].variable = variable;
-  var variable = new Variable(this.cellWidth, this.cellHeight, 4, 3, 1);
-  this.table[4][3].variable = variable;
-  var variable = new Variable(this.cellWidth, this.cellHeight, 4, 6, 1);
-  this.table[4][6].variable = variable;
-  var variable = new Variable(this.cellWidth, this.cellHeight, 1, 8, 0);
-  this.table[1][8].variable = variable;
+  var variable = new Variable(this.cellWidth, this.cellHeight, x, y,value);
+  this.table[x][y].variable = variable;
 }
 
 Grid.prototype.passVariable = function(cell)
