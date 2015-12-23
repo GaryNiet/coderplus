@@ -281,14 +281,14 @@ Grid.prototype.detectErrors = function(cell)
 
 Grid.prototype.addVariable = function()
 {
-  var variable = new Variable(this.cellWidth, this.cellHeight, 2, 2,3);
-  this.table[2][2].variable = variable;
-  var variable = new Variable(this.cellWidth, this.cellHeight, 10, 8, 6);
-  this.table[10][8].variable = variable;
-  var variable = new Variable(this.cellWidth, this.cellHeight, 5, 10, 3);
-  this.table[5][10].variable = variable;
-  var variable = new Variable(this.cellWidth, this.cellHeight, 5, 6, 1);
-  this.table[5][6].variable = variable;
+  var variable = new Variable(this.cellWidth, this.cellHeight, 2, 1,1);
+  this.table[2][1].variable = variable;
+  var variable = new Variable(this.cellWidth, this.cellHeight, 9, 8, 6);
+  this.table[9][8].variable = variable;
+  var variable = new Variable(this.cellWidth, this.cellHeight, 4, 3, 1);
+  this.table[4][3].variable = variable;
+  var variable = new Variable(this.cellWidth, this.cellHeight, 4, 6, 1);
+  this.table[4][6].variable = variable;
   var variable = new Variable(this.cellWidth, this.cellHeight, 1, 8, 0);
   this.table[1][8].variable = variable;
 }

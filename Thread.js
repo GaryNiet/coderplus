@@ -45,6 +45,7 @@ Thread.prototype.update = function()
 		else
 		{
 			this.direction = ((this.direction + 1)%4)+1;
+			
 		}
 		
 	}
