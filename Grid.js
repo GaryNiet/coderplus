@@ -122,6 +122,16 @@ Grid.prototype.fill = function(cell_x, cell_y)
           cell.createLinks();
         });
       }
+      else if(myGameArea.key_K == true)
+      {
+        var newPathCell = new KillCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        this.table[cell_x][cell_y] = newPathCell;
+        newPathCell.createLinks();
+        newPathCell.links.forEach(function(cell)
+        {
+          cell.createLinks();
+        });
+      }
       else
       {
         var newPathCell = new PathCell(this.cellWidth,this.cellHeight, cell_x, cell_y);

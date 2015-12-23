@@ -100,3 +100,14 @@ Thread.prototype.hasVariable = function()
 		return true;
 	}
 }
+
+Thread.prototype.kill = function()
+{
+	this.variable= null;
+
+	var index = threadPool.indexOf(this);
+	if (index > -1)
+	{
+    	threadPool.splice(index, 1);
+	}
+}
