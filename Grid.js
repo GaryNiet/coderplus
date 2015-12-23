@@ -132,6 +132,16 @@ Grid.prototype.fill = function(cell_x, cell_y)
           cell.createLinks();
         });
       }
+      else if(myGameArea.key_H == true)
+      {
+        var newPathCell = new SyncCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        this.table[cell_x][cell_y] = newPathCell;
+        newPathCell.createLinks();
+        newPathCell.links.forEach(function(cell)
+        {
+          cell.createLinks();
+        });
+      }
       else
       {
         var newPathCell = new PathCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
@@ -196,7 +206,7 @@ Grid.prototype.getNextDestination = function(direction, pos_x, pos_y)
 
   var cellLinks = this.table[point[0]][point[1]].links;
 
-  if(typeof cellLinks[direction] !== 'undefined' && cellLinks[direction].cellType == 2)
+  if(typeof cellLinks[direction] !== 'undefined' && cellLinks[direction].cellType >= 2)
   {
     return [cellLinks[direction].x, cellLinks[direction].y, direction];
   }
@@ -204,11 +214,11 @@ Grid.prototype.getNextDestination = function(direction, pos_x, pos_y)
   if(direction%2 == 0)//horizontal
   {
     var marker = 0;
-    if(typeof cellLinks[1] !== 'undefined' && cellLinks[1].cellType == 2)
+    if(typeof cellLinks[1] !== 'undefined' && cellLinks[1].cellType >= 2)
     {
       marker += 1;
     }
-    if(typeof cellLinks[3] !== 'undefined' && cellLinks[3].cellType == 2)
+    if(typeof cellLinks[3] !== 'undefined' && cellLinks[3].cellType >= 2)
     {
       marker += 2;
     }
@@ -230,11 +240,11 @@ Grid.prototype.getNextDestination = function(direction, pos_x, pos_y)
   else//vertical
   {
     var marker = 0;
-    if(typeof cellLinks[2] !== 'undefined' && cellLinks[2].cellType == 2)
+    if(typeof cellLinks[2] !== 'undefined' && cellLinks[2].cellType >= 2)
     {
       marker += 1;
     }
-    if(typeof cellLinks[4] !== 'undefined' && cellLinks[4].cellType == 2)
+    if(typeof cellLinks[4] !== 'undefined' && cellLinks[4].cellType >= 2)
     {
       marker += 2;
     }

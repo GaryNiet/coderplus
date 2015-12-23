@@ -38,11 +38,11 @@ IfCell.prototype.twoVariableOperation = function(thread) //if operation
     {
         var bestDirection = (thread.direction %4)+1;
         var otherDirection = ((bestDirection + 1)%4)+1;
-        if(this.links[bestDirection] !== 'undefined' && this.links[bestDirection].cellType == 2)
+        if(this.links[bestDirection] !== 'undefined' && this.links[bestDirection].cellType >= 2)
         {
             thread.direction = bestDirection;
         }
-        else if(this.links[otherDirection] !== 'undefined' && this.links[otherDirection].cellType == 2)
+        else if(this.links[otherDirection] !== 'undefined' && this.links[otherDirection].cellType >= 2)
         {
             thread.direction = otherDirection;
         }

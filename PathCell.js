@@ -30,7 +30,7 @@ PathCell.prototype.detectErrors = function()
 	var pathCounter = 0;
 	this.links.forEach(function(link)
 	{
-		if(link.cellType == 2)
+		if(link.cellType >= 2)
 		{
 			pathCounter += 1;
 		}

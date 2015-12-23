@@ -8,52 +8,56 @@ var Thread = function(pos_x, pos_y, dest_x, dest_y)
 	this.direction = 3; //0 = still // 1 = N // 2 = E // 3 = S // 4 = W
 	this.variable = null;
 	this.lineWidth = 4;
+	this.pause = false;
 
 }
 
 Thread.prototype.update = function()
 {
-	if(this.destination_x > this.position_x)
+	if(this.pause == false)
 	{
-		this.position_x += 2;
-	}
-	else if(this.destination_x < this.position_x)
-	{
-		this.position_x -= 2;
-	}
-
-	if(this.destination_y > this.position_y)
-	{
-		this.position_y += 2;
-	}
-	else if(this.destination_y < this.position_y)
-	{
-		this.position_y -= 2;
-	}
-
-	if(this.destination_x == this.position_x && this.destination_y == this.position_y)
-	{
-		this.activateCell();
-		var next_dest = gameGrid.getNextDestination(this.direction, this.destination_x, this.destination_y);
-
-		if(typeof next_dest !== 'undefined')
+		if(this.destination_x > this.position_x)
 		{
-			this.destination_x = next_dest[0];
-			this.destination_y = next_dest[1];
-			this.direction = next_dest[2];
+			this.position_x += 2;
 		}
-		else
+		else if(this.destination_x < this.position_x)
 		{
-			this.direction = ((this.direction + 1)%4)+1;
+			this.position_x -= 2;
+		}
+
+		if(this.destination_y > this.position_y)
+		{
+			this.position_y += 2;
+		}
+		else if(this.destination_y < this.position_y)
+		{
+			this.position_y -= 2;
+		}
+
+		if(this.destination_x == this.position_x && this.destination_y == this.position_y)
+		{
+			this.activateCell();
+			var next_dest = gameGrid.getNextDestination(this.direction, this.destination_x, this.destination_y);
+
+			if(typeof next_dest !== 'undefined')
+			{
+				this.destination_x = next_dest[0];
+				this.destination_y = next_dest[1];
+				this.direction = next_dest[2];
+			}
+			else
+			{
+				this.direction = ((this.direction + 1)%4)+1;
+				
+			}
 			
 		}
-		
-	}
 
-	if(this.variable !== null)
-	{
-		this.variable.x = this.position_x;
-		this.variable.y = this.position_y;
+		if(this.variable !== null)
+		{
+			this.variable.x = this.position_x;
+			this.variable.y = this.position_y;
+		}
 	}
 
 }
