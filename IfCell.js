@@ -30,7 +30,7 @@ inheritsFrom(IfCell, OperationCell);
 
 IfCell.prototype.twoVariableOperation = function(thread) //if operation
 {
-    if(thread.variable.value >= this.variable.value)
+    if(thread.variable.value > this.variable.value)
     {
         //go through
     }
