@@ -3,6 +3,7 @@ var Grid = function(width, height, strokeColor, fillColor, x, y) {
   this.cellHeight = height;
   this.nbCell_x = myGameArea.canvas.width/width;
   this.nbCell_y = myGameArea.canvas.height/height;
+  this.currentLevel = null;
 
   this.table = [];
   
@@ -43,6 +44,7 @@ Grid.prototype.getSquare = function(x,y)
 Grid.prototype.fill = function(cell_x, cell_y)
 {
   var cell = this.table[cell_x][cell_y];
+  console.log(typeof cell); 
   if(cell.buildable == false)
   {
     console.log("cannot build");
@@ -353,4 +355,16 @@ Grid.prototype.passVariable = function(cell)
   {
       this.table[cell.pos_x][cell.pos_y].variable = cell.variable;
   }
+}
+
+Grid.prototype.loadLevel = function(level)
+{
+  
+}
+
+Grid.prototype.saveLevel = function(levelNB)
+{
+  var json_str = JSON.stringify(this.table);
+  console.log(json_str);
+  createCookie(String(levelNB), json_str);
 }

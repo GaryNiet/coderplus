@@ -14,7 +14,7 @@ var BlockCell = function(width, height, x, y)
     this.direction = 0;
     this.isBorder = false;
     
-    this.buildable = false;
+    this.buildable = true;
 
 }
 
@@ -23,4 +23,9 @@ var inheritsFrom = function (child, parent)
     child.prototype = Object.create(parent.prototype);
 };
 inheritsFrom(BlockCell, Cell);
+
+BlockCell.prototype.draw = function()
+{
+
+}
 

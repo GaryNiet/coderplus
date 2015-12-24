@@ -349,6 +349,11 @@ function unsetKeys(event)
 
 }
 
+function loadLevel(button)
+{
+  console.log(button.value);
+}
+
 function loadImages()
 {
   image_up = new Image();
@@ -363,7 +368,33 @@ function loadImages()
   image_left.src = "images/left.png";
 }
 
-</script>
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
 
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+}
+
+function saveLevel()
+{
+  gameGrid.saveLevel(1);
+}
+
+</script>
+<br>
+<button id="btn1" value ="1" onclick="loadLevel(this)">Level 1</button><br/>
+<button id="btn2" value ="2" onclick="loadLevel(this)">Level 2</button><br/>
+<button id="btn3" onclick="saveLevel()">Save level</button><br/>
 </body>
 </html>
