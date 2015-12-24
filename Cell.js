@@ -38,7 +38,6 @@ Cell.prototype.drawVariable = function()
 
 Cell.prototype.links = function()
 {
-	console.log("pass");
 	var links = [];
 	if(typeof gameGrid.table[this.pos_x+1] !== 'undefined')
 	{

@@ -58,6 +58,7 @@ Grid.prototype.fill = function(cell_x, cell_y)
   
     if(cell.isBorder)
     {
+      console.log("here");
       var newBorderCell = new BorderCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
       this.table[cell_x][cell_y] = newBorderCell;
     }
@@ -297,8 +298,14 @@ Grid.prototype.loadLevel = function(levelNB)
     for(var i = 0; i<values.length; i++)
     {
       var split = values[i].split("");
-      var value = split[0];
-      var direction = split[1];
+      var len = split.length;
+      var value = "";
+      for(var j = 0; j<len; j++)
+      {
+        value += split[j];
+      }
+      value = parseInt(value);
+      var direction = split[len-1];
       if(value == 0)//Cell
       {
         this.table[parseInt(i/20)][i%20] = new Cell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
@@ -347,7 +354,6 @@ Grid.prototype.loadLevel = function(levelNB)
       {
         if(direction == "u")
         {
-          console.log("u");
           this.table[parseInt(i/20)][i%20].direction = 1;
         }
         else if(direction == "r")
