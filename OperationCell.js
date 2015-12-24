@@ -9,8 +9,7 @@ var OperationCell = function(width, height, x, y)
     this.strokeColor = "white";
     this.fillColor = "grey";
     this.isActive = true;
-    this.links = [];
-    this.cellType = 2;
+    this.cellType = 9;
     this.direction = 0;
     this.isBorder = false;
     this.setDirection();

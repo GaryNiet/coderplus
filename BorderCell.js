@@ -10,7 +10,6 @@ var BorderCell = function(width, height, x, y)
     this.fillColor = "black";
     this.isActive = true;
     this.readyThreads = 1;
-    this.links = [];
     this.cellType = 1;
     this.variable = null;
 

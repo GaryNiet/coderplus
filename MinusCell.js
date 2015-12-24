@@ -9,8 +9,7 @@ var MinusCell = function(width, height, x, y)
     this.strokeColor = "white";
     this.fillColor = "#0A92BF";
     this.isActive = true;
-    this.links = [];
-    this.cellType = 2;
+    this.cellType = 8;
     this.direction = 0;
     this.isBorder = false;
     this.setDirection();

@@ -9,8 +9,7 @@ var BlockCell = function(width, height, x, y)
     this.strokeColor = "white";
     this.fillColor = "red";
     this.isActive = true;
-    this.links = [];
-    this.cellType = 2;
+    this.cellType = 3;
     this.direction = 0;
     this.isBorder = false;
     
