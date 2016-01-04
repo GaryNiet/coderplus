@@ -9,8 +9,7 @@ var IfCell = function(width, height, x, y)
     this.strokeColor = "white";
     this.fillColor = "#44C958";
     this.isActive = true;
-    this.links = [];
-    this.cellType = 2;
+    this.cellType = 4;
     this.direction = 0;
     this.isBorder = false;
     this.setDirection();

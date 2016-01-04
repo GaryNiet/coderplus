@@ -9,7 +9,6 @@ var PathCell = function(width, height, x, y)
     this.strokeColor = "white";
     this.fillColor = "#782EB0";
     this.isActive = true;
-    this.links = [];
     this.cellType = 2;
     this.direction = 0;
     this.isBorder = false;

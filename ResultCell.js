@@ -9,8 +9,7 @@ var ResultCell = function(width, height, x, y)
     this.strokeColor = "pink";
     this.fillColor = "pink";
     this.isActive = true;
-    this.links = [];
-    this.cellType = 2;
+    this.cellType = 10;
     this.direction = 0;
     this.isBorder = false;
     this.setDirection();

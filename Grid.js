@@ -3,6 +3,7 @@ var Grid = function(width, height, strokeColor, fillColor, x, y) {
   this.cellHeight = height;
   this.nbCell_x = myGameArea.canvas.width/width;
   this.nbCell_y = myGameArea.canvas.height/height;
+  this.currentLevel = null;
 
   this.table = [];
   
@@ -42,33 +43,24 @@ Grid.prototype.getSquare = function(x,y)
 
 Grid.prototype.fill = function(cell_x, cell_y)
 {
-  var cell = this.table[cell_x][cell_y];
+  var cell = this.table[cell_x][cell_y]; 
   if(cell.buildable == false)
   {
     console.log("cannot build");
   }
   else if(myGameArea.which == 3)
   {
-    var newCell = new Cell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+      var newCell = new Cell(this.cellWidth,this.cellHeight, cell_x, cell_y);
       this.table[cell_x][cell_y] = newCell;
-      newCell.createLinks();
-      newCell.links.forEach(function(cell)
-      {
-        cell.createLinks();
-      });
   }
   else
   {
   
     if(cell.isBorder)
     {
+      console.log("here");
       var newBorderCell = new BorderCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
       this.table[cell_x][cell_y] = newBorderCell;
-      newBorderCell.createLinks();
-      newBorderCell.links.forEach(function(cell)
-      {
-        cell.createLinks();
-      });
     }
     else
     {
@@ -76,81 +68,41 @@ Grid.prototype.fill = function(cell_x, cell_y)
       {
         var newPathCell = new AddCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
         this.table[cell_x][cell_y] = newPathCell;
-        newPathCell.createLinks();
-        newPathCell.links.forEach(function(cell)
-        {
-          cell.createLinks();
-        });
       }
       else if(myGameArea.key_M == true)
       {
         var newPathCell = new MinusCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
         this.table[cell_x][cell_y] = newPathCell;
-        newPathCell.createLinks();
-        newPathCell.links.forEach(function(cell)
-        {
-          cell.createLinks();
-        });
       }
       else if(myGameArea.key_I == true)
       {
         var newPathCell = new IfCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
         this.table[cell_x][cell_y] = newPathCell;
-        newPathCell.createLinks();
-        newPathCell.links.forEach(function(cell)
-        {
-          cell.createLinks();
-        });
       }
       else if(myGameArea.key_R == true)
       {
         var newPathCell = new ResultCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
         this.table[cell_x][cell_y] = newPathCell;
-        newPathCell.createLinks();
-        newPathCell.links.forEach(function(cell)
-        {
-          cell.createLinks();
-        });
       }
       else if(myGameArea.key_B == true)
       {
         var newPathCell = new BlockCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
         this.table[cell_x][cell_y] = newPathCell;
-        newPathCell.createLinks();
-        newPathCell.links.forEach(function(cell)
-        {
-          cell.createLinks();
-        });
       }
       else if(myGameArea.key_C == true)
       {
         var newPathCell = new CopyCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
         this.table[cell_x][cell_y] = newPathCell;
-        newPathCell.createLinks();
-        newPathCell.links.forEach(function(cell)
-        {
-          cell.createLinks();
-        });
       }
       else if(myGameArea.key_K == true)
       {
         var newPathCell = new KillCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
         this.table[cell_x][cell_y] = newPathCell;
-        newPathCell.createLinks();
-        newPathCell.links.forEach(function(cell)
-        {
-          cell.createLinks();
-        });
       }
       else if(myGameArea.key_H == true)
       {
         var newPathCell = new SyncCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
         this.table[cell_x][cell_y] = newPathCell;
-        newPathCell.createLinks();
-        newPathCell.links.forEach(function(cell)
-        {
-          cell.createLinks();
-        });
       }
       else if(myGameArea.key_1 == true)
       {
@@ -197,11 +149,6 @@ Grid.prototype.fill = function(cell_x, cell_y)
       {
         var newPathCell = new PathCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
         this.table[cell_x][cell_y] = newPathCell;
-        newPathCell.createLinks();
-        newPathCell.links.forEach(function(cell)
-        {
-          cell.createLinks();
-        });
       }
       this.passVariable(cell);
     }
@@ -256,7 +203,7 @@ Grid.prototype.getNextDestination = function(direction, pos_x, pos_y)
     }
   }
 
-  var cellLinks = this.table[point[0]][point[1]].links;
+  var cellLinks = this.table[point[0]][point[1]].links();
 
   if(typeof cellLinks[direction] !== 'undefined' && cellLinks[direction].cellType >= 2)
   {
@@ -317,21 +264,10 @@ Grid.prototype.getNextDestination = function(direction, pos_x, pos_y)
 
 }
 
-Grid.prototype.createCellLinks = function()
-{
-  this.table.forEach(function(array)
-  {
-    array.forEach(function(cell)
-    {
-      cell.createLinks();
-    });
-  });
-}
-
 Grid.prototype.detectErrors = function(cell)
 {
   cell.detectErrors();
-  cell.links.forEach(function(cell)
+  cell.links().forEach(function(cell)
   {
     var err =  cell.detectErrors();
     if(err == true)
@@ -353,4 +289,133 @@ Grid.prototype.passVariable = function(cell)
   {
       this.table[cell.pos_x][cell.pos_y].variable = cell.variable;
   }
+}
+
+Grid.prototype.loadLevel = function(levelNB)
+{
+    var cookie = getCookie("test");
+    var values = cookie.split(" ");
+    for(var i = 0; i<values.length; i++)
+    {
+      var split = values[i].split("");
+      var len = split.length;
+      var value = "";
+      for(var j = 0; j<len; j++)
+      {
+        value += split[j];
+      }
+      value = parseInt(value);
+      var direction = split[len-1];
+      if(value == 0)//Cell
+      {
+        this.table[parseInt(i/20)][i%20] = new Cell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      }
+      else if(value == 1)//BorderCell
+      {
+        this.table[parseInt(i/20)][i%20] = new BorderCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      }
+      else if(value == 2)//PathCell
+      {
+        this.table[parseInt(i/20)][i%20] = new PathCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      }
+      else if(value == 3)//BlockCell
+      {
+        this.table[parseInt(i/20)][i%20] = new BlockCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      }
+      else if(value == 4)//IfCell
+      {
+        this.table[parseInt(i/20)][i%20] = new IfCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      }
+      else if(value == 5)//AddCell
+      {
+        this.table[parseInt(i/20)][i%20] = new AddCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      }
+      else if(value == 6)//CopyCell
+      {
+        this.table[parseInt(i/20)][i%20] = new CopyCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      }
+      else if(value == 7)//KillCell
+      {
+        this.table[parseInt(i/20)][i%20] = new KillCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      }
+      else if(value == 8)//MinusCell
+      {
+        this.table[parseInt(i/20)][i%20] = new MinusCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      }
+      else if(value == 10)//ResultCell
+      {
+        this.table[parseInt(i/20)][i%20] = new ResultCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      }
+      else if(value == 11)//SyncCell
+      {
+        this.table[parseInt(i/20)][i%20] = new SyncCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      }
+      if(this.table[parseInt(i/20)][i%20].direction == 0)
+      {
+        if(direction == "u")
+        {
+          this.table[parseInt(i/20)][i%20].direction = 1;
+        }
+        else if(direction == "r")
+        {
+          this.table[parseInt(i/20)][i%20].direction = 2;
+        }
+        else if(direction == "d")
+        {
+          this.table[parseInt(i/20)][i%20].direction = 3;
+        }
+        else if(direction == "l")
+        {
+          this.table[parseInt(i/20)][i%20].direction = 4;
+        }
+      }
+    }
+}
+
+Grid.prototype.saveLevel = function(levelNB)
+{
+  var cookie = this.stringifyTable();
+  setCookie("test", cookie, 365);
+}
+
+Grid.prototype.stringifyTable = function()
+{
+  var string = "";
+  this.table.forEach(function(array)
+  {
+    array.forEach(function(cell)
+    {
+      string += cell.cellType;
+      if(typeof cell.direction != 'undefined')
+      {
+        if(cell.direction == 0)
+        {
+          string += "m";
+        }
+        else if(cell.direction == 1)
+        {
+          string += "u";
+        }
+        else if(cell.direction == 2)
+        {
+          string += "r";
+        }
+        else if(cell.direction == 3)
+        {
+          string += "d";
+        }
+        else if(cell.direction == 4)
+        {
+          string += "l";
+        }
+      }
+      else
+      {
+        string += "n";
+      }
+      string += " ";
+    });
+  });
+  console.log(string);
+  return string;
 }

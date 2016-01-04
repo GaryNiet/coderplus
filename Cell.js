@@ -9,7 +9,6 @@ var Cell = function(width, height, x, y) {
     this.fillColor = "#3C464A";
     this.isActive = false;
     this.isBorder = false;
-    this.links = [];
     this.cellType = 0;
     this.variable = null;
     this.buildable = true;
@@ -37,25 +36,26 @@ Cell.prototype.drawVariable = function()
     }
 }
 
-Cell.prototype.createLinks = function()
+Cell.prototype.links = function()
 {
+	var links = [];
 	if(typeof gameGrid.table[this.pos_x+1] !== 'undefined')
 	{
-		this.links[2]=(gameGrid.table[this.pos_x+1][this.pos_y]);
+		links[2]=(gameGrid.table[this.pos_x+1][this.pos_y]);
 	}
 	if(typeof gameGrid.table[this.pos_x][this.pos_y+1] !== 'undefined')
 	{
-		this.links[3]=(gameGrid.table[this.pos_x][this.pos_y+1]);
+		links[3]=(gameGrid.table[this.pos_x][this.pos_y+1]);
 	}
 	if(typeof gameGrid.table[this.pos_x-1] !== 'undefined')
 	{
-		this.links[4]=(gameGrid.table[this.pos_x-1][this.pos_y]);
+		links[4]=(gameGrid.table[this.pos_x-1][this.pos_y]);
 	}
 	if(typeof gameGrid.table[this.pos_x][this.pos_y-1] !== 'undefined')
 	{
-		this.links[1]=(gameGrid.table[this.pos_x][this.pos_y-1]);
+		links[1]=(gameGrid.table[this.pos_x][this.pos_y-1]);
 	}
-	
+	return links;
 }
 
 Cell.prototype.detectErrors = function()

@@ -9,12 +9,11 @@ var BlockCell = function(width, height, x, y)
     this.strokeColor = "white";
     this.fillColor = "red";
     this.isActive = true;
-    this.links = [];
-    this.cellType = 2;
+    this.cellType = 3;
     this.direction = 0;
     this.isBorder = false;
     
-    this.buildable = false;
+    this.buildable = true;
 
 }
 
@@ -23,4 +22,9 @@ var inheritsFrom = function (child, parent)
     child.prototype = Object.create(parent.prototype);
 };
 inheritsFrom(BlockCell, Cell);
+
+BlockCell.prototype.draw = function()
+{
+
+}
 

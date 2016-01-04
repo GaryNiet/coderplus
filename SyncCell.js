@@ -9,8 +9,7 @@ var SyncCell = function(width, height, x, y)
     this.strokeColor = "white";
     this.fillColor = "blue";
     this.isActive = true;
-    this.links = [];
-    this.cellType = 3;
+    this.cellType = 11;
     this.isBorder = false;
     
     this.variable = null;
