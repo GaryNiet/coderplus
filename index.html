@@ -18,6 +18,8 @@
 <script src="CopyCell.js"></script>
 <script src="KillCell.js"></script>
 <script src="SyncCell.js"></script>
+<script src="ControlPanel.js"></script>
+<script src="Button.js"></script>
 <style>
 canvas {
     border:1px solid #d3d3d3;
@@ -35,6 +37,7 @@ function startGame() {
     loadImages();
     myGameArea.start();
     gameGrid = new Grid(cellSize, cellSize, "white", "black", 10, 120);
+    controlPanel = new ControlPanel(200, 800, 800);
     threadPool = [];
     running = false;
 
@@ -43,7 +46,7 @@ function startGame() {
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 800;
+        this.canvas.width = 1000;
         this.canvas.height = 800;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
@@ -114,7 +117,8 @@ var myGameArea = {
 
 function updateGameArea()
 {
-  myGameArea.clear();
+  var ctx = myGameArea.context;
+  ctx.clearRect(0,0, 800,800);
   gameGrid.draw();
 
   if(running == true)
@@ -143,9 +147,10 @@ function updateThreads()
 function click()
 {
   var rect = myGameArea.canvas.getBoundingClientRect();
-  var clicked = gameGrid.getSquare(myGameArea.x - rect.left, myGameArea.y - rect.top);
-  this.lastDraggedCell = clicked;
-  gameGrid.fill(clicked[0], clicked[1]);
+  var clickedRectangle = gameGrid.getSquare(myGameArea.x - rect.left, myGameArea.y - rect.top);
+  controlPanel.buttonClicked(myGameArea.x - rect.left, myGameArea.y - rect.top);
+  this.lastDraggedCell = clickedRectangle;
+  gameGrid.fill(clickedRectangle[0], clickedRectangle[1]);
 }
 
 function drag()
@@ -442,6 +447,7 @@ function stop()
 
 </script>
 <br>
+
 <button id="btn1" value ="1" onclick="loadLevel(this)">Level 1</button><br/>
 <button id="btn2" value ="2" onclick="loadLevel(this)">Level 2</button><br/>
 <button onclick="start()">start</button><br/>

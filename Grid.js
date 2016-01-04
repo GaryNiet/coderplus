@@ -1,8 +1,9 @@
 var Grid = function(width, height, strokeColor, fillColor, x, y) {
   this.cellWidth = width;
   this.cellHeight = height;
-  this.nbCell_x = myGameArea.canvas.width/width;
   this.nbCell_y = myGameArea.canvas.height/height;
+  this.nbCell_x = this.nbCell_y;
+  
   this.currentLevel = 1;
 
   this.table = [];

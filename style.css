@@ -1,2 +1,8 @@
 #c
 {width: 501px; height: 381px;}
+
+html, body {
+  width:  100%;
+  height: 100%;
+  margin: 0px;
+}
