@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script src="jquery-2.1.4.min.js"></script>
 <script src="Grid.js"></script>
 <script src="Cell.js"></script>
 <script src="BorderCell.js"></script>
@@ -17,7 +18,6 @@
 <script src="CopyCell.js"></script>
 <script src="KillCell.js"></script>
 <script src="SyncCell.js"></script>
-<script src="levels/level1.js"></script>
 <style>
 canvas {
     border:1px solid #d3d3d3;
@@ -36,6 +36,7 @@ function startGame() {
     myGameArea.start();
     gameGrid = new Grid(cellSize, cellSize, "white", "black", 10, 120);
     threadPool = [];
+    running = false;
 
 }
 
@@ -115,9 +116,28 @@ function updateGameArea()
 {
   myGameArea.clear();
   gameGrid.draw();
-  createThreads();
-  updateThreads();
 
+  if(running == true)
+  {
+    createThreads();
+    updateThreads();
+  }
+  else
+  {
+    threadPool.forEach(function(thread)
+    {
+      thread.draw();
+    });
+  }
+}
+
+function updateThreads()
+{
+  threadPool.forEach(function(thread)
+  {
+    thread.draw();
+    thread.update();
+  })
 }
 
 function click()
@@ -154,14 +174,7 @@ function createThreads()
   });
 }
 
-function updateThreads()
-{
-  threadPool.forEach(function(thread)
-  {
-    thread.draw();
-    thread.update();
-  })
-}
+
 
 function setKeys(event)
 {
@@ -394,17 +407,45 @@ function getCookie(cname) {
     return "";
 }
 
+function getTextFromServer(urlGet, callback) 
+{
+    $.ajax(
+    {
+      type:    "GET",
+      url:     urlGet,
+      success: function(text) {
+        console.log(text);
+        callback(text);
+      },
+      error:   function(xhr, status, error) {
+        var decompressedText = JXG.decompress(xhr.responseText);
+          callback(JSON.parse(decompressedText));
+      }
+  });
+}
+
 function resetLevel()
 {
   gameGrid.resetLevel();
 }
 
+function start()
+{
+  running = true;
+}
+
+function stop()
+{
+  running = false;
+}
 
 
 </script>
 <br>
 <button id="btn1" value ="1" onclick="loadLevel(this)">Level 1</button><br/>
 <button id="btn2" value ="2" onclick="loadLevel(this)">Level 2</button><br/>
+<button onclick="start()">start</button><br/>
+<button onclick="stop()">stop</button><br/>
 <button id="btn3" onclick="saveLevel()">Save level</button><br/>
 <button onclick="resetLevel()">Reset Level</button><br/>
 </body>

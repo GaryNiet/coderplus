@@ -296,11 +296,14 @@ Grid.prototype.getLevel = function(levelNB)
   var cookie = getCookie(String(levelNB));
   if(cookie == "")
   {
-    return level;
+    getTextFromServer("levels/level"+levelNB+".js", function(text)
+    {
+      this.deployLevel(text);
+    }.bind(this));
   }
   else
   {
-    return cookie;
+    this.deployLevel(cookie);
   }
 }
 
@@ -313,84 +316,87 @@ Grid.prototype.resetLevel = function()
 
 Grid.prototype.loadLevel = function(levelNB)
 {
-    var level = this.getLevel(levelNB);
-    
-    var values = level.split(" ");
-    for(var i = 0; i<values.length; i++)
+  this.getLevel(levelNB);
+}
+
+Grid.prototype.deployLevel = function(level)
+{
+  var values = level.split(" ");
+  for(var i = 0; i<values.length; i++)
+  {
+    var split = values[i].split("");
+    var len = split.length;
+    var value = "";
+    for(var j = 0; j<len; j++)
     {
-      var split = values[i].split("");
-      var len = split.length;
-      var value = "";
-      for(var j = 0; j<len; j++)
+      value += split[j];
+    }
+    value = parseInt(value);
+    var direction = split[len-1];
+    if(value == 0)//Cell
+    {
+      this.table[parseInt(i/20)][i%20] = new Cell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+    }
+    else if(value == 1)//BorderCell
+    {
+      this.table[parseInt(i/20)][i%20] = new BorderCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+    }
+    else if(value == 2)//PathCell
+    {
+      this.table[parseInt(i/20)][i%20] = new PathCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+    }
+    else if(value == 3)//BlockCell
+    {
+      this.table[parseInt(i/20)][i%20] = new BlockCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+    }
+    else if(value == 4)//IfCell
+    {
+      this.table[parseInt(i/20)][i%20] = new IfCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+    }
+    else if(value == 5)//AddCell
+    {
+      this.table[parseInt(i/20)][i%20] = new AddCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+    }
+    else if(value == 6)//CopyCell
+    {
+      this.table[parseInt(i/20)][i%20] = new CopyCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+    }
+    else if(value == 7)//KillCell
+    {
+      this.table[parseInt(i/20)][i%20] = new KillCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+    }
+    else if(value == 8)//MinusCell
+    {
+      this.table[parseInt(i/20)][i%20] = new MinusCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+    }
+    else if(value == 10)//ResultCell
+    {
+      this.table[parseInt(i/20)][i%20] = new ResultCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+    }
+    else if(value == 11)//SyncCell
+    {
+      this.table[parseInt(i/20)][i%20] = new SyncCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+    }
+    if(this.table[parseInt(i/20)][i%20].direction == 0)
+    {
+      if(direction == "u")
       {
-        value += split[j];
+        this.table[parseInt(i/20)][i%20].direction = 1;
       }
-      value = parseInt(value);
-      var direction = split[len-1];
-      if(value == 0)//Cell
+      else if(direction == "r")
       {
-        this.table[parseInt(i/20)][i%20] = new Cell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+        this.table[parseInt(i/20)][i%20].direction = 2;
       }
-      else if(value == 1)//BorderCell
+      else if(direction == "d")
       {
-        this.table[parseInt(i/20)][i%20] = new BorderCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+        this.table[parseInt(i/20)][i%20].direction = 3;
       }
-      else if(value == 2)//PathCell
+      else if(direction == "l")
       {
-        this.table[parseInt(i/20)][i%20] = new PathCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
-      }
-      else if(value == 3)//BlockCell
-      {
-        this.table[parseInt(i/20)][i%20] = new BlockCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
-      }
-      else if(value == 4)//IfCell
-      {
-        this.table[parseInt(i/20)][i%20] = new IfCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
-      }
-      else if(value == 5)//AddCell
-      {
-        this.table[parseInt(i/20)][i%20] = new AddCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
-      }
-      else if(value == 6)//CopyCell
-      {
-        this.table[parseInt(i/20)][i%20] = new CopyCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
-      }
-      else if(value == 7)//KillCell
-      {
-        this.table[parseInt(i/20)][i%20] = new KillCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
-      }
-      else if(value == 8)//MinusCell
-      {
-        this.table[parseInt(i/20)][i%20] = new MinusCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
-      }
-      else if(value == 10)//ResultCell
-      {
-        this.table[parseInt(i/20)][i%20] = new ResultCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
-      }
-      else if(value == 11)//SyncCell
-      {
-        this.table[parseInt(i/20)][i%20] = new SyncCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
-      }
-      if(this.table[parseInt(i/20)][i%20].direction == 0)
-      {
-        if(direction == "u")
-        {
-          this.table[parseInt(i/20)][i%20].direction = 1;
-        }
-        else if(direction == "r")
-        {
-          this.table[parseInt(i/20)][i%20].direction = 2;
-        }
-        else if(direction == "d")
-        {
-          this.table[parseInt(i/20)][i%20].direction = 3;
-        }
-        else if(direction == "l")
-        {
-          this.table[parseInt(i/20)][i%20].direction = 4;
-        }
+        this.table[parseInt(i/20)][i%20].direction = 4;
       }
     }
+  }
 }
 
 Grid.prototype.saveLevel = function(levelNB)
