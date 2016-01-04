@@ -3,7 +3,7 @@ var Grid = function(width, height, strokeColor, fillColor, x, y) {
   this.cellHeight = height;
   this.nbCell_x = myGameArea.canvas.width/width;
   this.nbCell_y = myGameArea.canvas.height/height;
-  this.currentLevel = null;
+  this.currentLevel = 1;
 
   this.table = [];
   
@@ -291,10 +291,31 @@ Grid.prototype.passVariable = function(cell)
   }
 }
 
+Grid.prototype.getLevel = function(levelNB)
+{
+  var cookie = getCookie(String(levelNB));
+  if(cookie == "")
+  {
+    return level;
+  }
+  else
+  {
+    return cookie;
+  }
+}
+
+Grid.prototype.resetLevel = function()
+{
+  var cookie = "";
+  setCookie(String(this.currentLevel), cookie, 365);
+  this.loadLevel(this.currentLevel);
+}
+
 Grid.prototype.loadLevel = function(levelNB)
 {
-    var cookie = getCookie("test");
-    var values = cookie.split(" ");
+    var level = this.getLevel(levelNB);
+    
+    var values = level.split(" ");
     for(var i = 0; i<values.length; i++)
     {
       var split = values[i].split("");
@@ -375,7 +396,8 @@ Grid.prototype.loadLevel = function(levelNB)
 Grid.prototype.saveLevel = function(levelNB)
 {
   var cookie = this.stringifyTable();
-  setCookie("test", cookie, 365);
+  console.log(cookie);
+  setCookie(String(levelNB), cookie, 365);
 }
 
 Grid.prototype.stringifyTable = function()
@@ -416,6 +438,5 @@ Grid.prototype.stringifyTable = function()
       string += " ";
     });
   });
-  console.log(string);
   return string;
 }

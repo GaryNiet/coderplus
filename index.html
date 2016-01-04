@@ -17,6 +17,7 @@
 <script src="CopyCell.js"></script>
 <script src="KillCell.js"></script>
 <script src="SyncCell.js"></script>
+<script src="levels/level1.js"></script>
 <style>
 canvas {
     border:1px solid #d3d3d3;
@@ -350,12 +351,13 @@ function unsetKeys(event)
 
 function loadLevel(button)
 {
+  gameGrid.currentLevel = button.value;
   gameGrid.loadLevel(button.value);
 }
 
 function saveLevel()
 {
-  gameGrid.saveLevel(1);
+  gameGrid.saveLevel(gameGrid.currentLevel);
 }
 
 function loadImages()
@@ -392,6 +394,11 @@ function getCookie(cname) {
     return "";
 }
 
+function resetLevel()
+{
+  gameGrid.resetLevel();
+}
+
 
 
 </script>
@@ -399,5 +406,6 @@ function getCookie(cname) {
 <button id="btn1" value ="1" onclick="loadLevel(this)">Level 1</button><br/>
 <button id="btn2" value ="2" onclick="loadLevel(this)">Level 2</button><br/>
 <button id="btn3" onclick="saveLevel()">Save level</button><br/>
+<button onclick="resetLevel()">Reset Level</button><br/>
 </body>
 </html>
