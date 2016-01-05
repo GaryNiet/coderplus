@@ -1,4 +1,4 @@
-var BorderCell = function(width, height, x, y)
+var BorderCell = function(width, height, x, y, buildable)
 {
 	this.width = width;
     this.height = height;
@@ -12,6 +12,7 @@ var BorderCell = function(width, height, x, y)
     this.readyThreads = 1;
     this.cellType = 1;
     this.variable = null;
+    this.buildable = buildable;
 
     this.isBorder = true;
 

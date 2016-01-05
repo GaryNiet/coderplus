@@ -59,7 +59,6 @@ Grid.prototype.fill = function(cell_x, cell_y)
   
     if(cell.isBorder)
     {
-      console.log("here");
       var newBorderCell = new BorderCell(this.cellWidth,this.cellHeight, cell_x, cell_y, true);
       this.table[cell_x][cell_y] = newBorderCell;
     }
@@ -103,6 +102,16 @@ Grid.prototype.fill = function(cell_x, cell_y)
       else if(myGameArea.key_H == true)
       {
         var newPathCell = new SyncCell(this.cellWidth,this.cellHeight, cell_x, cell_y, true);
+        this.table[cell_x][cell_y] = newPathCell;
+      }
+      else if(myGameArea.key_E == true)
+      {
+        var newPathCell = new DropCell(this.cellWidth,this.cellHeight, cell_x, cell_y, true);
+        this.table[cell_x][cell_y] = newPathCell;
+      }
+      else if(myGameArea.key_G == true)
+      {
+        var newPathCell = new GeneratorCell(this.cellWidth,this.cellHeight, cell_x, cell_y, true);
         this.table[cell_x][cell_y] = newPathCell;
       }
       else if(myGameArea.key_1 == true)
@@ -377,6 +386,14 @@ Grid.prototype.deployLevel = function(level)
     else if(value == 11)//SyncCell
     {
       this.table[parseInt(i/20)][i%20] = new SyncCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, false);
+    }
+    else if(value == 12)//DropCell
+    {
+      this.table[parseInt(i/20)][i%20] = new DropCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, false);
+    }
+    else if(value == 13)//GeneratorCell
+    {
+      this.table[parseInt(i/20)][i%20] = new GeneratorCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, false);
     }
     if(this.table[parseInt(i/20)][i%20].direction == 0)
     {

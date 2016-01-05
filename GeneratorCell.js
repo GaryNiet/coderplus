@@ -1,4 +1,4 @@
-var CopyCell = function(width, height, x, y, buildable)
+var GeneratorCell = function(width, height, x, y, buildable)
 {
     this.width = width;
     this.height = height;
@@ -7,9 +7,9 @@ var CopyCell = function(width, height, x, y, buildable)
     this.pos_x = x;
     this.pos_y = y;
     this.strokeColor = "white";
-    this.fillColor = "red";
+    this.fillColor = "blue";
     this.isActive = true;
-    this.cellType = 6;
+    this.cellType = 13;
     this.direction = 0;
     this.isBorder = false;
     this.setDirection();
@@ -22,14 +22,20 @@ var inheritsFrom = function (child, parent)
 {
     child.prototype = Object.create(parent.prototype);
 };
-inheritsFrom(CopyCell, PathCell);
+inheritsFrom(GeneratorCell, PathCell);
 
 
-CopyCell.prototype.threadVariableOperation = function(thread)//copy
+GeneratorCell.prototype.threadVariableOperation = function(thread)//copy
 {
-    this.variable = thread.variable.copy();
-    this.variable.x = this.x;
-    this.variable.y = this.y;
+    this.variable = thread.variable;
+    thread.dropVariable();
 }
+
+GeneratorCell.prototype.cellVariableOperation = function(thread)//pick up
+{
+    thread.pickUpVariable(this.variable.copy());
+}
+
+
 
 

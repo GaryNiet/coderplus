@@ -1,4 +1,4 @@
-var AddCell = function(width, height, x, y)
+var AddCell = function(width, height, x, y, buildable)
 {
 	this.width = width;
     this.height = height;
@@ -16,6 +16,7 @@ var AddCell = function(width, height, x, y)
     this.variable = null;
     this.textColor = "black";
     this.value = "+";
+    this.buildable = buildable;
 }
 
 var inheritsFrom = function (child, parent)

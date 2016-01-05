@@ -18,6 +18,8 @@
 <script src="CopyCell.js"></script>
 <script src="KillCell.js"></script>
 <script src="SyncCell.js"></script>
+<script src="DropCell.js"></script>
+<script src="GeneratorCell.js"></script>
 <script src="ControlPanel.js"></script>
 <script src="Button.js"></script>
 <script src="LevelButton.js"></script>
@@ -75,6 +77,8 @@ var myGameArea = {
         this.key_H = false;
         this.key_P = false;
         this.key_M = false;
+        this.key_E = false;
+        this.key_G = false;
         this.lastDraggedCell = null;
 
 
@@ -272,6 +276,14 @@ function setKeys(event)
   {
     myGameArea.key_P = true;
   }
+  if(event.keyCode == 69)
+  {
+    myGameArea.key_E = true;
+  }
+  if(event.keyCode == 71)
+  {
+    myGameArea.key_G = true;
+  }
 }
 
 function unsetKeys(event)
@@ -363,6 +375,14 @@ function unsetKeys(event)
   if(event.keyCode == 80)
   {
     myGameArea.key_P = false;
+  }
+  if(event.keyCode == 69)
+  {
+    myGameArea.key_E = false;
+  }
+  if(event.keyCode == 71)
+  {
+    myGameArea.key_G = false;
   }
   
 

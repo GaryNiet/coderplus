@@ -30,6 +30,13 @@ OperationCell.prototype.threadVariableOperation = function(thread)
 {
 	this.variable = thread.variable;
 	thread.dropVariable();
+    this.variable.x = this.x;
+    this.variable.y = this.y;
+}
+
+OperationCell.prototype.cellVariableOperation = function(thread)
+{
+    //move along
 }
 
 OperationCell.prototype.draw = function()
