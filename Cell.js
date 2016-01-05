@@ -1,4 +1,4 @@
-var Cell = function(width, height, x, y) {
+var Cell = function(width, height, x, y, buildable) {
     this.width = width;
     this.height = height;
     this.x = x*width;
@@ -11,7 +11,7 @@ var Cell = function(width, height, x, y) {
     this.isBorder = false;
     this.cellType = 0;
     this.variable = null;
-    this.buildable = true;
+    this.buildable = buildable;
     this.lineWidth = 2;
 }
 

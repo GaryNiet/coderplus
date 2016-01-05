@@ -1,4 +1,4 @@
-var IfCell = function(width, height, x, y)
+var IfCell = function(width, height, x, y, buildable)
 {
 	this.width = width;
     this.height = height;
@@ -15,7 +15,7 @@ var IfCell = function(width, height, x, y)
     this.setDirection();
     this.variable = null;
 
-    this.buildable = true;
+    this.buildable = buildable;
     this.textColor = "black";
     this.value = ">";
 }

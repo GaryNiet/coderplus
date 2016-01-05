@@ -1,10 +1,11 @@
-var Button = function(posx, posy, width, height, text)
+var Button = function(posx, posy, width, height, text, click_function)
 {
 	this.posx = posx;
 	this.posy = posy;
 	this.width = width;
 	this.height = height;
 	this.text = text;
+	this.click_function = click_function;
 
 	this.fillColor = "grey";
   	this.strokeColor = "black";
@@ -30,6 +31,6 @@ Button.prototype.click = function(x,y)
 {
 	if(x >= this.posx && x<=this.posx + this.width && y >= this.posy && y<= this.posy + this.height)
 	{
-		console.log("clicked");
+		this.click_function();
 	}
 }

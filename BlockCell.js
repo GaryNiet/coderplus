@@ -1,4 +1,4 @@
-var BlockCell = function(width, height, x, y)
+var BlockCell = function(width, height, x, y,buildable)
 {
     this.width = width;
     this.height = height;
@@ -13,7 +13,7 @@ var BlockCell = function(width, height, x, y)
     this.direction = 0;
     this.isBorder = false;
     
-    this.buildable = true;
+    this.buildable = buildable;
 
 }
 

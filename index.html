@@ -20,6 +20,7 @@
 <script src="SyncCell.js"></script>
 <script src="ControlPanel.js"></script>
 <script src="Button.js"></script>
+<script src="LevelButton.js"></script>
 <style>
 canvas {
     border:1px solid #d3d3d3;
@@ -367,10 +368,10 @@ function unsetKeys(event)
 
 }
 
-function loadLevel(button)
+function loadLevel(value)
 {
-  gameGrid.currentLevel = button.value;
-  gameGrid.loadLevel(button.value);
+  gameGrid.currentLevel = value;
+  gameGrid.loadLevel(value);
 }
 
 function saveLevel()

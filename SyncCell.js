@@ -1,4 +1,4 @@
-var SyncCell = function(width, height, x, y)
+var SyncCell = function(width, height, x, y, buildable)
 {
 	this.width = width;
     this.height = height;
@@ -14,7 +14,7 @@ var SyncCell = function(width, height, x, y)
     
     this.variable = null;
 
-    this.buildable = true;
+    this.buildable = buildable;
     this.checkedForSync = false;
     this.pausedThread = null;
 }

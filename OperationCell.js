@@ -1,4 +1,4 @@
-var OperationCell = function(width, height, x, y)
+var OperationCell = function(width, height, x, y, buildable)
 {
 	this.width = width;
     this.height = height;
@@ -17,7 +17,7 @@ var OperationCell = function(width, height, x, y)
     this.textColor = "black";
     this.value = "-";
 
-    this.buildable = true;
+    this.buildable = buildable;
 }
 
 var inheritsFrom = function (child, parent)

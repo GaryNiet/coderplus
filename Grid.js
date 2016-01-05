@@ -3,7 +3,7 @@ var Grid = function(width, height, strokeColor, fillColor, x, y) {
   this.cellHeight = height;
   this.nbCell_y = myGameArea.canvas.height/height;
   this.nbCell_x = this.nbCell_y;
-  
+
   this.currentLevel = 1;
 
   this.table = [];
@@ -13,7 +13,7 @@ var Grid = function(width, height, strokeColor, fillColor, x, y) {
     this.table.push([]);
     for(var j = 0; j<this.nbCell_y; j++)
     {
-      var newCell = new Cell(width,height, i, j);
+      var newCell = new Cell(width,height, i, j, true);
       this.table[i][j] = newCell;
       if(i == 0 || i==this.nbCell_x -1 || j == 0 || j== this.nbCell_y-1)
       {
@@ -60,49 +60,49 @@ Grid.prototype.fill = function(cell_x, cell_y)
     if(cell.isBorder)
     {
       console.log("here");
-      var newBorderCell = new BorderCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+      var newBorderCell = new BorderCell(this.cellWidth,this.cellHeight, cell_x, cell_y, true);
       this.table[cell_x][cell_y] = newBorderCell;
     }
     else
     {
       if(myGameArea.key_P == true)
       {
-        var newPathCell = new AddCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        var newPathCell = new AddCell(this.cellWidth,this.cellHeight, cell_x, cell_y, true);
         this.table[cell_x][cell_y] = newPathCell;
       }
       else if(myGameArea.key_M == true)
       {
-        var newPathCell = new MinusCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        var newPathCell = new MinusCell(this.cellWidth,this.cellHeight, cell_x, cell_y, true);
         this.table[cell_x][cell_y] = newPathCell;
       }
       else if(myGameArea.key_I == true)
       {
-        var newPathCell = new IfCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        var newPathCell = new IfCell(this.cellWidth,this.cellHeight, cell_x, cell_y, true);
         this.table[cell_x][cell_y] = newPathCell;
       }
       else if(myGameArea.key_R == true)
       {
-        var newPathCell = new ResultCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        var newPathCell = new ResultCell(this.cellWidth,this.cellHeight, cell_x, cell_y, true);
         this.table[cell_x][cell_y] = newPathCell;
       }
       else if(myGameArea.key_B == true)
       {
-        var newPathCell = new BlockCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        var newPathCell = new BlockCell(this.cellWidth,this.cellHeight, cell_x, cell_y, true);
         this.table[cell_x][cell_y] = newPathCell;
       }
       else if(myGameArea.key_C == true)
       {
-        var newPathCell = new CopyCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        var newPathCell = new CopyCell(this.cellWidth,this.cellHeight, cell_x, cell_y, true);
         this.table[cell_x][cell_y] = newPathCell;
       }
       else if(myGameArea.key_K == true)
       {
-        var newPathCell = new KillCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        var newPathCell = new KillCell(this.cellWidth,this.cellHeight, cell_x, cell_y, true);
         this.table[cell_x][cell_y] = newPathCell;
       }
       else if(myGameArea.key_H == true)
       {
-        var newPathCell = new SyncCell(this.cellWidth,this.cellHeight, cell_x, cell_y);
+        var newPathCell = new SyncCell(this.cellWidth,this.cellHeight, cell_x, cell_y, true);
         this.table[cell_x][cell_y] = newPathCell;
       }
       else if(myGameArea.key_1 == true)
@@ -336,47 +336,47 @@ Grid.prototype.deployLevel = function(level)
     var direction = split[len-1];
     if(value == 0)//Cell
     {
-      this.table[parseInt(i/20)][i%20] = new Cell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      this.table[parseInt(i/20)][i%20] = new Cell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, true);
     }
     else if(value == 1)//BorderCell
     {
-      this.table[parseInt(i/20)][i%20] = new BorderCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      this.table[parseInt(i/20)][i%20] = new BorderCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, false);
     }
     else if(value == 2)//PathCell
     {
-      this.table[parseInt(i/20)][i%20] = new PathCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      this.table[parseInt(i/20)][i%20] = new PathCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, false);
     }
     else if(value == 3)//BlockCell
     {
-      this.table[parseInt(i/20)][i%20] = new BlockCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      this.table[parseInt(i/20)][i%20] = new BlockCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, false);
     }
     else if(value == 4)//IfCell
     {
-      this.table[parseInt(i/20)][i%20] = new IfCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      this.table[parseInt(i/20)][i%20] = new IfCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, false);
     }
     else if(value == 5)//AddCell
     {
-      this.table[parseInt(i/20)][i%20] = new AddCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      this.table[parseInt(i/20)][i%20] = new AddCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, false);
     }
     else if(value == 6)//CopyCell
     {
-      this.table[parseInt(i/20)][i%20] = new CopyCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      this.table[parseInt(i/20)][i%20] = new CopyCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, false);
     }
     else if(value == 7)//KillCell
     {
-      this.table[parseInt(i/20)][i%20] = new KillCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      this.table[parseInt(i/20)][i%20] = new KillCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, false);
     }
     else if(value == 8)//MinusCell
     {
-      this.table[parseInt(i/20)][i%20] = new MinusCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      this.table[parseInt(i/20)][i%20] = new MinusCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, false);
     }
     else if(value == 10)//ResultCell
     {
-      this.table[parseInt(i/20)][i%20] = new ResultCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      this.table[parseInt(i/20)][i%20] = new ResultCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, false);
     }
     else if(value == 11)//SyncCell
     {
-      this.table[parseInt(i/20)][i%20] = new SyncCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20);
+      this.table[parseInt(i/20)][i%20] = new SyncCell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, false);
     }
     if(this.table[parseInt(i/20)][i%20].direction == 0)
     {
