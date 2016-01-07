@@ -331,18 +331,35 @@ Grid.prototype.loadLevel = function(levelNB)
 
 Grid.prototype.deployLevel = function(level)
 {
+  //stop level
+  stop();
+  //kill threads
+  threadPool = [];
+
   var values = level.split(" ");
   for(var i = 0; i<values.length; i++)
   {
     var split = values[i].split("");
     var len = split.length;
-    var value = "";
+    var value = 0;
+    var letterPlacement;
+
     for(var j = 0; j<len; j++)
     {
-      value += split[j];
+      var character = parseInt(split[j]);
+      
+      if(isNaN(character))
+      {
+        letterPlacement = j;
+      }
+      else
+      {
+        value *= 10;
+        value += character;
+      }
+
     }
-    value = parseInt(value);
-    var direction = split[len-1];
+    var direction = split[letterPlacement];
     if(value == 0)//Cell
     {
       this.table[parseInt(i/20)][i%20] = new Cell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, true);

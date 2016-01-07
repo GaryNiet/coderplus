@@ -51,8 +51,10 @@ var myGameArea = {
     start : function() {
         this.canvas.width = 1000;
         this.canvas.height = 800;
+        this.canvas.id = "gameCanvas";  
         this.context = this.canvas.getContext("2d");
-        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        var gameArea = document.getElementById("gameArea");
+        document.getElementById("gameArea").insertBefore(this.canvas, document.getElementById("gameArea").childNodes[0]);
         this.interval = setInterval(updateGameArea, 30);
         this.mouseDown = false;
         this.key_W = false;
@@ -467,13 +469,8 @@ function stop()
 
 
 </script>
-<br>
+<div id="gameArea">
 
-<button id="btn1" value ="1" onclick="loadLevel(this)">Level 1</button><br/>
-<button id="btn2" value ="2" onclick="loadLevel(this)">Level 2</button><br/>
-<button onclick="start()">start</button><br/>
-<button onclick="stop()">stop</button><br/>
-<button id="btn3" onclick="saveLevel()">Save level</button><br/>
-<button onclick="resetLevel()">Reset Level</button><br/>
+</div>
 </body>
 </html>
