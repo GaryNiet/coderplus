@@ -341,25 +341,26 @@ Grid.prototype.deployLevel = function(level)
   {
     var split = values[i].split("");
     var len = split.length;
-    var value = 0;
+    var value = "";
     var letterPlacement;
+    var counter = 0;
+    var varValue = "";
 
-    for(var j = 0; j<len; j++)
+    while(!isNaN(parseInt(split[counter])))// while the characters are numbers
     {
-      var character = parseInt(split[j]);
-      
-      if(isNaN(character))
-      {
-        letterPlacement = j;
-      }
-      else
-      {
-        value *= 10;
-        value += character;
-      }
-
+      value += split[counter];
+      counter += 1;
     }
+    letterPlacement = counter;
+    value = parseInt(value);
     var direction = split[letterPlacement];
+
+    for(var j = letterPlacement+1; j<split.length; j++)
+    {
+      varValue += split[j];
+    }
+    varValue = parseInt(varValue);
+
     if(value == 0)//Cell
     {
       this.table[parseInt(i/20)][i%20] = new Cell(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, true);
@@ -431,6 +432,10 @@ Grid.prototype.deployLevel = function(level)
         this.table[parseInt(i/20)][i%20].direction = 4;
       }
     }
+    if(!isNaN(varValue))
+    {
+      this.table[parseInt(i/20)][i%20].variable = new Variable(this.cellWidth,this.cellHeight, parseInt(i/20), i%20, varValue);
+    }
   }
 }
 
@@ -475,6 +480,10 @@ Grid.prototype.stringifyTable = function()
       else
       {
         string += "n";
+      }
+      if(cell.hasVariable())
+      {
+        string += cell.variable.value;
       }
       string += " ";
     });
