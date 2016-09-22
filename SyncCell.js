@@ -43,7 +43,7 @@ SyncCell.prototype.makeOperation = function(thread)
 
 
 
-SyncCell.prototype.threadVariableOperation = function(thread)//free
+SyncCell.prototype.threadVariableOperation = function(thread)//free if sync is full
 {
 	thread.pause = true;
 	this.pausedThread = thread;
@@ -86,9 +86,9 @@ SyncCell.prototype.getSyncGroup = function()
 	var group = [];
 	group.push(this);
 	this.checkedForSync = true;
-	this.links.forEach(function(link)
+	this.links().forEach(function(link)
 	{
-		if(link.cellType == 3 && link.checkedForSync == false)
+		if(link.cellType == 11 && link.checkedForSync == false)
 		{
 			link.getSyncGroup().forEach(function(cell)
 			{
@@ -98,7 +98,3 @@ SyncCell.prototype.getSyncGroup = function()
 	});
 	return group;
 }
-
-
-
-
